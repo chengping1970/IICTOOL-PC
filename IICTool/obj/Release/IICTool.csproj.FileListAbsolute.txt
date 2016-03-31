@@ -1,0 +1,9 @@
+E:\visual studio\IICTool\IICTool\bin\Release\IICTool.exe.config
+E:\visual studio\IICTool\IICTool\bin\Release\IICTool.exe
+E:\visual studio\IICTool\IICTool\bin\Release\IICTool.pdb
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.csprojResolveAssemblyReference.cache
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.I2CTool.resources
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.Properties.Resources.resources
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.csproj.GenerateResource.Cache
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.exe
+E:\visual studio\IICTool\IICTool\obj\Release\IICTool.pdb
