@@ -7,3 +7,12 @@ E:\visual studio\IICTool\IICTool\obj\Debug\IICTool.csproj.GenerateResource.Cache
 E:\visual studio\IICTool\IICTool\obj\Debug\IICTool.exe
 E:\visual studio\IICTool\IICTool\obj\Debug\IICTool.pdb
 E:\visual studio\IICTool\IICTool\obj\Debug\IICTool.I2CTool.resources
+E:\work\IICTOOL-PC\IICTool\bin\Debug\IICTool.exe.config
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.exe
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.pdb
+E:\work\IICTOOL-PC\IICTool\bin\Debug\IICTool.exe
+E:\work\IICTOOL-PC\IICTool\bin\Debug\IICTool.pdb
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.csprojResolveAssemblyReference.cache
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.I2CTool.resources
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.Properties.Resources.resources
+E:\work\IICTOOL-PC\IICTool\obj\Debug\IICTool.csproj.GenerateResource.Cache

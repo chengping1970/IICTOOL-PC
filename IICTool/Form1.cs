@@ -80,12 +80,11 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-
                     SelectUart.BaudRate = 115200;
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 1000;
+                    SelectUart.ReadTimeout = 2000;
                     cbSerial.Enabled = false;
                     if (SelectUart.IsOpen == true)
                     {
@@ -96,7 +95,18 @@ namespace IICTool
                 }
                 catch
                 {
-                    MessageBox.Show("Can not open serial port!", "Error");
+                    int i;
+                    cbSerial.Items.Clear();
+                    string[] portList = System.IO.Ports.SerialPort.GetPortNames();
+                    for (i = 0; i < portList.Length; i++)
+                    {
+                        string name = portList[i];
+                        cbSerial.Items.Add(name);
+                    }
+                    SelectUart.Close();
+                    cbSerial.Enabled = true;
+                    button1.Text = "Connect";
+                    MessageBox.Show("Can not open serial port!", "Error"); 
                     return;
                 }
             }
@@ -295,6 +305,10 @@ namespace IICTool
             }
             else
             {
+                ReadAll.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 1;
@@ -312,6 +326,10 @@ namespace IICTool
                 catch 
                 {
                     MessageBox.Show("Timeout!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return;
                 }
                 int checmsum = 0x100 - ((Byte)(ReceiveBuffer[3] + ReceiveBuffer[4] + ReceiveBuffer[5] + ReceiveBuffer[6]));
@@ -324,6 +342,10 @@ namespace IICTool
                 {
                     MessageBox.Show("Read fail!", "Error");
                 }
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
             }
         }
 
@@ -336,6 +358,10 @@ namespace IICTool
             }
             else
             {
+                ReadAll.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 0;
@@ -345,6 +371,24 @@ namespace IICTool
                 SendBuffer[6] = (Byte)Convert.ToInt32(RegValue.Text, 16);
                 SendBuffer[7] = (Byte)(0x100 - ((Byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(20);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
             }
         }
 
@@ -371,6 +415,10 @@ namespace IICTool
             }
             else
             {
+                ReadAll.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 3;
@@ -388,6 +436,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Timeout!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return;
                 }
                 int i, checksum = ReceiveBuffer[3] + ReceiveBuffer[4] + ReceiveBuffer[5];
@@ -410,6 +462,10 @@ namespace IICTool
                 {
                     MessageBox.Show("Read fail!", "Error");
                 }
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
             }
         }
 
@@ -422,6 +478,20 @@ namespace IICTool
             }
             else
             {
+                int addr = Convert.ToInt32(SlaveAddress.Text, 16);
+                if (addr >= 0xA0 && addr < 0xB0)
+                {
+                    MessageBoxButtons messButton = MessageBoxButtons.YesNo;
+                    DialogResult dr = MessageBox.Show("Write EEPROM", "NOTICE", messButton);
+                    if (dr == DialogResult.No)
+                    {
+                        return;
+                    }
+                }
+                ReadAll.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
+                button4.Enabled = false;
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 2;
@@ -436,6 +506,31 @@ namespace IICTool
                 }
                 SendBuffer[256 + 6] = (Byte)(0x100 - checksum);
                 SelectUart.Write(SendBuffer, 0, 256 + 7);
+                if (addr >= 0xA0 && addr < 0xB0)
+                {
+                    Thread.Sleep(2000);
+                }
+                else
+                {
+                    Thread.Sleep(1000);
+                }
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
             }
         }
 
