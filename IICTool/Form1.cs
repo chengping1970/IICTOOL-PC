@@ -580,5 +580,33 @@ namespace IICTool
                 fs.Close();
             }
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            Byte val = (Byte)Convert.ToInt32(RegValue.Text, 16);
+            val++;
+            RegValue.Text = val.ToString("X2");
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            Byte val = (Byte)Convert.ToInt32(RegValue.Text, 16);
+            val--;
+            RegValue.Text = val.ToString("X2");
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Byte val = (Byte)Convert.ToInt32(RegValue.Text, 16);
+            val += 10;
+            RegValue.Text = val.ToString("X2");
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            Byte val = (Byte)Convert.ToInt32(RegValue.Text, 16);
+            val -= 10;
+            RegValue.Text = val.ToString("X2");
+        }
     }
 }

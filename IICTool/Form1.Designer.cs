@@ -51,17 +51,11 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.ReadAll = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.cbSerial = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
             this.RegData = new System.Windows.Forms.DataGridView();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.addr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column00 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column01 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,6 +73,16 @@
             this.Column0D = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column0E = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column0F = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.button8 = new System.Windows.Forms.Button();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.ReadAll = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -88,7 +92,7 @@
             // 
             this.Label1.AutoSize = true;
             this.Label1.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.Label1.Location = new System.Drawing.Point(10, 21);
+            this.Label1.Location = new System.Drawing.Point(10, 24);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(105, 14);
             this.Label1.TabIndex = 0;
@@ -97,7 +101,7 @@
             // SlaveAddress
             // 
             this.SlaveAddress.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.SlaveAddress.Location = new System.Drawing.Point(118, 17);
+            this.SlaveAddress.Location = new System.Drawing.Point(118, 20);
             this.SlaveAddress.MaxLength = 2;
             this.SlaveAddress.Name = "SlaveAddress";
             this.SlaveAddress.Size = new System.Drawing.Size(37, 23);
@@ -306,24 +310,14 @@
             this.label13.TabIndex = 23;
             this.label13.Text = "0";
             // 
-            // ReadAll
-            // 
-            this.ReadAll.Location = new System.Drawing.Point(255, 62);
-            this.ReadAll.Name = "ReadAll";
-            this.ReadAll.Size = new System.Drawing.Size(87, 23);
-            this.ReadAll.TabIndex = 24;
-            this.ReadAll.Text = "Read All";
-            this.ReadAll.UseVisualStyleBackColor = true;
-            this.ReadAll.Click += new System.EventHandler(this.ReadAll_Click);
-            // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button6);
+            this.groupBox1.Controls.Add(this.button10);
+            this.groupBox1.Controls.Add(this.button9);
+            this.groupBox1.Controls.Add(this.button8);
+            this.groupBox1.Controls.Add(this.button7);
             this.groupBox1.Controls.Add(this.button4);
             this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.button2);
-            this.groupBox1.Controls.Add(this.ReadAll);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
@@ -349,59 +343,19 @@
             this.groupBox1.Controls.Add(this.Label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(445, 128);
+            this.groupBox1.Size = new System.Drawing.Size(412, 136);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(386, 17);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(49, 23);
-            this.button6.TabIndex = 29;
-            this.button6.Text = "Save";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(348, 95);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(87, 26);
-            this.button4.TabIndex = 27;
-            this.button4.Text = "Write Byte";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(255, 95);
+            this.button3.Location = new System.Drawing.Point(199, 18);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(87, 26);
+            this.button3.Size = new System.Drawing.Size(89, 26);
             this.button3.TabIndex = 26;
             this.button3.Text = "Read Byte";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(330, 17);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(49, 23);
-            this.button5.TabIndex = 28;
-            this.button5.Text = "Load";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(348, 62);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 23);
-            this.button2.TabIndex = 25;
-            this.button2.Text = "Write All";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // cbSerial
             // 
@@ -414,7 +368,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(6, 62);
+            this.button1.Location = new System.Drawing.Point(107, 17);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 29);
             this.button1.TabIndex = 27;
@@ -448,23 +402,12 @@
             this.Column0E,
             this.Column0F});
             this.RegData.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.RegData.Location = new System.Drawing.Point(11, 156);
+            this.RegData.Location = new System.Drawing.Point(15, 161);
             this.RegData.Name = "RegData";
             this.RegData.RowHeadersVisible = false;
             this.RegData.RowTemplate.Height = 23;
             this.RegData.Size = new System.Drawing.Size(632, 390);
             this.RegData.TabIndex = 28;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.cbSerial);
-            this.groupBox2.Location = new System.Drawing.Point(535, 12);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(108, 102);
-            this.groupBox2.TabIndex = 29;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Serial Port";
             // 
             // addr
             // 
@@ -637,6 +580,111 @@
             this.Column0F.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Column0F.Width = 37;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.ReadAll);
+            this.groupBox2.Controls.Add(this.button1);
+            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.cbSerial);
+            this.groupBox2.Controls.Add(this.button6);
+            this.groupBox2.Controls.Add(this.button5);
+            this.groupBox2.Location = new System.Drawing.Point(443, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(212, 136);
+            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Serial Port";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(262, 60);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(58, 28);
+            this.button7.TabIndex = 30;
+            this.button7.Text = "+1";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
+            // 
+            // button8
+            // 
+            this.button8.Location = new System.Drawing.Point(262, 97);
+            this.button8.Name = "button8";
+            this.button8.Size = new System.Drawing.Size(58, 28);
+            this.button8.TabIndex = 31;
+            this.button8.Text = "-1";
+            this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
+            // 
+            // button9
+            // 
+            this.button9.Location = new System.Drawing.Point(333, 61);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(58, 29);
+            this.button9.TabIndex = 32;
+            this.button9.Text = "+10";
+            this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
+            // 
+            // button10
+            // 
+            this.button10.Location = new System.Drawing.Point(333, 96);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(58, 28);
+            this.button10.TabIndex = 33;
+            this.button10.Text = "-10";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(304, 17);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(87, 26);
+            this.button4.TabIndex = 27;
+            this.button4.Text = "Write Byte";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(113, 61);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(87, 29);
+            this.button6.TabIndex = 29;
+            this.button6.Text = "Save";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(11, 61);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(87, 29);
+            this.button5.TabIndex = 28;
+            this.button5.Text = "Load";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
+            // 
+            // ReadAll
+            // 
+            this.ReadAll.Location = new System.Drawing.Point(113, 97);
+            this.ReadAll.Name = "ReadAll";
+            this.ReadAll.Size = new System.Drawing.Size(87, 27);
+            this.ReadAll.TabIndex = 24;
+            this.ReadAll.Text = "Read All";
+            this.ReadAll.UseVisualStyleBackColor = true;
+            this.ReadAll.Click += new System.EventHandler(this.ReadAll_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(11, 96);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(87, 28);
+            this.button2.TabIndex = 25;
+            this.button2.Text = "Write All";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // I2CTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -683,16 +731,11 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Button ReadAll;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbSerial;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView RegData;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.DataGridViewTextBoxColumn addr;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column00;
@@ -711,6 +754,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column0D;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column0E;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column0F;
+        private System.Windows.Forms.Button button10;
+        private System.Windows.Forms.Button button9;
+        private System.Windows.Forms.Button button8;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ReadAll;
+        private System.Windows.Forms.Button button2;
     }
 }
 
