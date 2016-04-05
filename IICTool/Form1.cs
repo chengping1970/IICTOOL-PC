@@ -54,6 +54,7 @@ namespace IICTool
         {
             int i;
 
+            cbSerial.Text = "";
             cbSerial.Items.Clear();
             string[] portList = System.IO.Ports.SerialPort.GetPortNames();
             for (i = 0; i < portList.Length; i++)
@@ -607,6 +608,11 @@ namespace IICTool
             Byte val = (Byte)Convert.ToInt32(RegValue.Text, 16);
             val -= 10;
             RegValue.Text = val.ToString("X2");
+        }
+
+        private void cbSerial_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
