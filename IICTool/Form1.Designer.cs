@@ -59,7 +59,6 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.cbSerial = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.RegData = new System.Windows.Forms.DataGridView();
             this.addr = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column00 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,10 +78,16 @@
             this.Column0E = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column0F = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.ReadAll = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.button11 = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -91,10 +96,10 @@
             // Label1
             // 
             this.Label1.AutoSize = true;
-            this.Label1.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Label1.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Label1.Location = new System.Drawing.Point(10, 24);
             this.Label1.Name = "Label1";
-            this.Label1.Size = new System.Drawing.Size(105, 14);
+            this.Label1.Size = new System.Drawing.Size(164, 21);
             this.Label1.TabIndex = 0;
             this.Label1.Text = "Device Address";
             // 
@@ -104,7 +109,7 @@
             this.SlaveAddress.Location = new System.Drawing.Point(118, 20);
             this.SlaveAddress.MaxLength = 2;
             this.SlaveAddress.Name = "SlaveAddress";
-            this.SlaveAddress.Size = new System.Drawing.Size(37, 23);
+            this.SlaveAddress.Size = new System.Drawing.Size(55, 31);
             this.SlaveAddress.TabIndex = 1;
             this.SlaveAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.SlaveAddress.TextChanged += new System.EventHandler(this.SlaveAddress_TextChanged);
@@ -114,7 +119,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(10, 65);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 14);
+            this.label3.Size = new System.Drawing.Size(131, 21);
             this.label3.TabIndex = 3;
             this.label3.Text = "SUB Address";
             // 
@@ -123,7 +128,7 @@
             this.Label4.AutoSize = true;
             this.Label4.Location = new System.Drawing.Point(10, 104);
             this.Label4.Name = "Label4";
-            this.Label4.Size = new System.Drawing.Size(63, 14);
+            this.Label4.Size = new System.Drawing.Size(98, 21);
             this.Label4.TabIndex = 4;
             this.Label4.Text = "BIT Edit";
             // 
@@ -132,7 +137,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(149, 66);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(42, 14);
+            this.label5.Size = new System.Drawing.Size(65, 21);
             this.label5.TabIndex = 5;
             this.label5.Text = "Value";
             // 
@@ -143,7 +148,7 @@
             this.SUBAddress.MaxLength = 2;
             this.SUBAddress.Name = "SUBAddress";
             this.SUBAddress.ReadOnly = true;
-            this.SUBAddress.Size = new System.Drawing.Size(37, 23);
+            this.SUBAddress.Size = new System.Drawing.Size(37, 31);
             this.SUBAddress.TabIndex = 6;
             this.SUBAddress.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -153,7 +158,7 @@
             this.RegValue.Location = new System.Drawing.Point(198, 62);
             this.RegValue.MaxLength = 2;
             this.RegValue.Name = "RegValue";
-            this.RegValue.Size = new System.Drawing.Size(37, 23);
+            this.RegValue.Size = new System.Drawing.Size(37, 31);
             this.RegValue.TabIndex = 7;
             this.RegValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RegValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
@@ -163,7 +168,7 @@
             this.cbBIT7.AutoSize = true;
             this.cbBIT7.Location = new System.Drawing.Point(74, 105);
             this.cbBIT7.Name = "cbBIT7";
-            this.cbBIT7.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT7.Size = new System.Drawing.Size(22, 21);
             this.cbBIT7.TabIndex = 8;
             this.cbBIT7.UseVisualStyleBackColor = true;
             this.cbBIT7.CheckedChanged += new System.EventHandler(this.cbBIT7_CheckedChanged);
@@ -173,7 +178,7 @@
             this.cbBIT6.AutoSize = true;
             this.cbBIT6.Location = new System.Drawing.Point(95, 105);
             this.cbBIT6.Name = "cbBIT6";
-            this.cbBIT6.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT6.Size = new System.Drawing.Size(22, 21);
             this.cbBIT6.TabIndex = 9;
             this.cbBIT6.UseVisualStyleBackColor = true;
             this.cbBIT6.CheckedChanged += new System.EventHandler(this.cbBIT6_CheckedChanged);
@@ -183,7 +188,7 @@
             this.cbBIT5.AutoSize = true;
             this.cbBIT5.Location = new System.Drawing.Point(116, 105);
             this.cbBIT5.Name = "cbBIT5";
-            this.cbBIT5.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT5.Size = new System.Drawing.Size(22, 21);
             this.cbBIT5.TabIndex = 10;
             this.cbBIT5.UseVisualStyleBackColor = true;
             this.cbBIT5.CheckedChanged += new System.EventHandler(this.cbBIT5_CheckedChanged);
@@ -193,7 +198,7 @@
             this.cbBIT4.AutoSize = true;
             this.cbBIT4.Location = new System.Drawing.Point(137, 105);
             this.cbBIT4.Name = "cbBIT4";
-            this.cbBIT4.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT4.Size = new System.Drawing.Size(22, 21);
             this.cbBIT4.TabIndex = 11;
             this.cbBIT4.UseVisualStyleBackColor = true;
             this.cbBIT4.CheckedChanged += new System.EventHandler(this.cbBIT4_CheckedChanged);
@@ -203,7 +208,7 @@
             this.cbBIT3.AutoSize = true;
             this.cbBIT3.Location = new System.Drawing.Point(158, 105);
             this.cbBIT3.Name = "cbBIT3";
-            this.cbBIT3.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT3.Size = new System.Drawing.Size(22, 21);
             this.cbBIT3.TabIndex = 12;
             this.cbBIT3.UseVisualStyleBackColor = true;
             this.cbBIT3.CheckedChanged += new System.EventHandler(this.cbBIT3_CheckedChanged);
@@ -213,7 +218,7 @@
             this.cbBIT2.AutoSize = true;
             this.cbBIT2.Location = new System.Drawing.Point(179, 105);
             this.cbBIT2.Name = "cbBIT2";
-            this.cbBIT2.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT2.Size = new System.Drawing.Size(22, 21);
             this.cbBIT2.TabIndex = 13;
             this.cbBIT2.UseVisualStyleBackColor = true;
             this.cbBIT2.CheckedChanged += new System.EventHandler(this.cbBIT2_CheckedChanged);
@@ -223,7 +228,7 @@
             this.cbBIT1.AutoSize = true;
             this.cbBIT1.Location = new System.Drawing.Point(200, 105);
             this.cbBIT1.Name = "cbBIT1";
-            this.cbBIT1.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT1.Size = new System.Drawing.Size(22, 21);
             this.cbBIT1.TabIndex = 14;
             this.cbBIT1.UseVisualStyleBackColor = true;
             this.cbBIT1.CheckedChanged += new System.EventHandler(this.cbBIT1_CheckedChanged);
@@ -233,7 +238,7 @@
             this.cbBIT0.AutoSize = true;
             this.cbBIT0.Location = new System.Drawing.Point(221, 105);
             this.cbBIT0.Name = "cbBIT0";
-            this.cbBIT0.Size = new System.Drawing.Size(15, 14);
+            this.cbBIT0.Size = new System.Drawing.Size(22, 21);
             this.cbBIT0.TabIndex = 15;
             this.cbBIT0.UseVisualStyleBackColor = true;
             this.cbBIT0.CheckedChanged += new System.EventHandler(this.cbBIT0_CheckedChanged);
@@ -243,7 +248,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(75, 88);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(14, 14);
+            this.label6.Size = new System.Drawing.Size(21, 21);
             this.label6.TabIndex = 16;
             this.label6.Text = "7";
             // 
@@ -252,7 +257,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(96, 88);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(14, 14);
+            this.label7.Size = new System.Drawing.Size(21, 21);
             this.label7.TabIndex = 17;
             this.label7.Text = "6";
             // 
@@ -261,7 +266,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(117, 88);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(14, 14);
+            this.label8.Size = new System.Drawing.Size(21, 21);
             this.label8.TabIndex = 18;
             this.label8.Text = "5";
             // 
@@ -270,7 +275,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(138, 88);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(14, 14);
+            this.label9.Size = new System.Drawing.Size(21, 21);
             this.label9.TabIndex = 19;
             this.label9.Text = "4";
             // 
@@ -279,7 +284,7 @@
             this.label10.AutoSize = true;
             this.label10.Location = new System.Drawing.Point(159, 88);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(14, 14);
+            this.label10.Size = new System.Drawing.Size(21, 21);
             this.label10.TabIndex = 20;
             this.label10.Text = "3";
             // 
@@ -288,7 +293,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(179, 88);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(14, 14);
+            this.label11.Size = new System.Drawing.Size(21, 21);
             this.label11.TabIndex = 21;
             this.label11.Text = "2";
             // 
@@ -297,7 +302,7 @@
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(201, 88);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(14, 14);
+            this.label12.Size = new System.Drawing.Size(21, 21);
             this.label12.TabIndex = 22;
             this.label12.Text = "1";
             // 
@@ -306,7 +311,7 @@
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(222, 88);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(14, 14);
+            this.label13.Size = new System.Drawing.Size(21, 21);
             this.label13.TabIndex = 23;
             this.label13.Text = "0";
             // 
@@ -343,15 +348,15 @@
             this.groupBox1.Controls.Add(this.Label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(412, 136);
+            this.groupBox1.Size = new System.Drawing.Size(499, 136);
             this.groupBox1.TabIndex = 25;
             this.groupBox1.TabStop = false;
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(333, 96);
+            this.button10.Location = new System.Drawing.Point(333, 94);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(58, 28);
+            this.button10.Size = new System.Drawing.Size(58, 33);
             this.button10.TabIndex = 33;
             this.button10.Text = "-10";
             this.button10.UseVisualStyleBackColor = true;
@@ -359,9 +364,9 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(333, 61);
+            this.button9.Location = new System.Drawing.Point(333, 54);
             this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(58, 29);
+            this.button9.Size = new System.Drawing.Size(58, 34);
             this.button9.TabIndex = 32;
             this.button9.Text = "+10";
             this.button9.UseVisualStyleBackColor = true;
@@ -369,9 +374,9 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(262, 97);
+            this.button8.Location = new System.Drawing.Point(262, 94);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(58, 28);
+            this.button8.Size = new System.Drawing.Size(58, 33);
             this.button8.TabIndex = 31;
             this.button8.Text = "-1";
             this.button8.UseVisualStyleBackColor = true;
@@ -379,9 +384,9 @@
             // 
             // button7
             // 
-            this.button7.Location = new System.Drawing.Point(262, 60);
+            this.button7.Location = new System.Drawing.Point(262, 54);
             this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(58, 28);
+            this.button7.Size = new System.Drawing.Size(58, 34);
             this.button7.TabIndex = 30;
             this.button7.Text = "+1";
             this.button7.UseVisualStyleBackColor = true;
@@ -389,43 +394,33 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(304, 17);
+            this.button4.Location = new System.Drawing.Point(412, 54);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(87, 26);
+            this.button4.Size = new System.Drawing.Size(64, 34);
             this.button4.TabIndex = 27;
-            this.button4.Text = "Write Byte";
+            this.button4.Text = "Write";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(199, 18);
+            this.button3.Location = new System.Drawing.Point(412, 94);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(89, 26);
+            this.button3.Size = new System.Drawing.Size(66, 33);
             this.button3.TabIndex = 26;
-            this.button3.Text = "Read Byte";
+            this.button3.Text = "Read";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // cbSerial
             // 
             this.cbSerial.FormattingEnabled = true;
-            this.cbSerial.Location = new System.Drawing.Point(6, 22);
+            this.cbSerial.Location = new System.Drawing.Point(90, 77);
             this.cbSerial.Name = "cbSerial";
-            this.cbSerial.Size = new System.Drawing.Size(96, 22);
+            this.cbSerial.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.cbSerial.Size = new System.Drawing.Size(119, 29);
             this.cbSerial.TabIndex = 26;
-            this.cbSerial.SelectedIndexChanged += new System.EventHandler(this.cbSerial_SelectedIndexChanged);
             this.cbSerial.Click += new System.EventHandler(this.comboBox1_click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(107, 17);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(96, 29);
-            this.button1.TabIndex = 27;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // RegData
             // 
@@ -633,24 +628,57 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.ReadAll);
-            this.groupBox2.Controls.Add(this.button1);
-            this.groupBox2.Controls.Add(this.button2);
+            this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.radioButton2);
+            this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.cbSerial);
-            this.groupBox2.Controls.Add(this.button6);
-            this.groupBox2.Controls.Add(this.button5);
-            this.groupBox2.Location = new System.Drawing.Point(443, 12);
+            this.groupBox2.Location = new System.Drawing.Point(541, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(212, 136);
+            this.groupBox2.Size = new System.Drawing.Size(228, 129);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Serial Port";
+            this.groupBox2.Text = "Port Select";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
+            this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.textBox1.Location = new System.Drawing.Point(90, 39);
+            this.textBox1.MaxLength = 2;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(119, 31);
+            this.textBox1.TabIndex = 34;
+            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(21, 81);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(79, 25);
+            this.radioButton2.TabIndex = 29;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "UART";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(21, 45);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(68, 25);
+            this.radioButton1.TabIndex = 28;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "USB";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
             // ReadAll
             // 
-            this.ReadAll.Location = new System.Drawing.Point(15, 98);
+            this.ReadAll.Location = new System.Drawing.Point(660, 161);
             this.ReadAll.Name = "ReadAll";
-            this.ReadAll.Size = new System.Drawing.Size(87, 27);
+            this.ReadAll.Size = new System.Drawing.Size(124, 36);
             this.ReadAll.TabIndex = 24;
             this.ReadAll.Text = "Read All";
             this.ReadAll.UseVisualStyleBackColor = true;
@@ -658,9 +686,9 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(113, 97);
+            this.button2.Location = new System.Drawing.Point(660, 220);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(87, 28);
+            this.button2.Size = new System.Drawing.Size(124, 36);
             this.button2.TabIndex = 25;
             this.button2.Text = "Write All";
             this.button2.UseVisualStyleBackColor = true;
@@ -668,9 +696,9 @@
             // 
             // button6
             // 
-            this.button6.Location = new System.Drawing.Point(113, 61);
+            this.button6.Location = new System.Drawing.Point(660, 510);
             this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(87, 29);
+            this.button6.Size = new System.Drawing.Size(124, 36);
             this.button6.TabIndex = 29;
             this.button6.Text = "Save";
             this.button6.UseVisualStyleBackColor = true;
@@ -678,23 +706,55 @@
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(15, 61);
+            this.button5.Location = new System.Drawing.Point(660, 452);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(87, 29);
+            this.button5.Size = new System.Drawing.Size(124, 36);
             this.button5.TabIndex = 28;
             this.button5.Text = "Load";
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(660, 278);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(124, 36);
+            this.button11.TabIndex = 30;
+            this.button11.Text = "Run Script";
+            this.button11.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(660, 336);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(124, 36);
+            this.button12.TabIndex = 31;
+            this.button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(660, 394);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(124, 36);
+            this.button13.TabIndex = 32;
+            this.button13.UseVisualStyleBackColor = true;
+            // 
             // I2CTool
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(661, 561);
+            this.ClientSize = new System.Drawing.Size(796, 561);
+            this.Controls.Add(this.button13);
+            this.Controls.Add(this.button12);
+            this.Controls.Add(this.button11);
+            this.Controls.Add(this.ReadAll);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.RegData);
             this.Controls.Add(this.groupBox1);
-            this.Font = new System.Drawing.Font("SimSun", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Controls.Add(this.button5);
+            this.Controls.Add(this.button6);
+            this.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "I2CTool";
@@ -703,6 +763,7 @@
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).EndInit();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -734,7 +795,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cbSerial;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridView RegData;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -764,6 +824,12 @@
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button ReadAll;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button13;
     }
 }
 
