@@ -102,6 +102,7 @@ namespace IICTool
 
         public string HIDdevicePathName;
 
+        public bool DisplayMessage = false;
         public SerialPort SelectUart;
         public byte[] SendBuffer = new byte[256 + 64];
         public byte[] ReceiveBuffer = new byte[256 + 64];
@@ -110,6 +111,9 @@ namespace IICTool
         public I2CTool()
         {
             InitializeComponent();
+            this.Width = this.Width - 250;
+            button13.Text = ">>>";
+
             SelectUart = new SerialPort();
             RegData.Rows.Add(new object[] { ("00").ToString(), "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00" });
             RegData.Rows.Add(new object[] { ("10").ToString(), "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00", "00" });
@@ -473,16 +477,16 @@ namespace IICTool
         {
             Bitcheck_change();
         }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            ReadAll.Enabled = false;
+				
+		private bool Read_Register(byte SlaveAddr, byte SUBAddr, ref byte value)
+		{
+			ReadAll.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
             if (radioButton1.Checked)
             {
-                int i, retry = 0;
+                int retry = 0;
                 uint ReadNumber = 0;
                 uint WriteNumber = 0;
                 bool result;
@@ -495,8 +499,8 @@ namespace IICTool
                                         0);
                 SendBuffer[0] = 0;
                 SendBuffer[1] = 0;
-                SendBuffer[2] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
-                SendBuffer[3] = (byte)Convert.ToInt32(SUBAddress.Text, 16);
+                SendBuffer[2] = SlaveAddr;
+                SendBuffer[3] = SUBAddr;
                 SendBuffer[4] = 0;
                 SendBuffer[5] = 1;
                 result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
@@ -519,12 +523,11 @@ namespace IICTool
                     button3.Enabled = true;
                     button4.Enabled = true;
                     CloseHandle(HidHandle);
-                    return;
+                    return false;
                 }
                 else
                 {
-                    int val = ReceiveBuffer[6];
-                    RegValue.Text = val.ToString("X2");
+                    value = ReceiveBuffer[6];
                 }                             
                 CloseHandle(HidHandle);
             }
@@ -548,13 +551,13 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
-                    return;
+                    return false;
                 }
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 1;
-                SendBuffer[3] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
-                SendBuffer[4] = (byte)Convert.ToInt32(SUBAddress.Text, 16);
+                SendBuffer[3] = SlaveAddr;
+                SendBuffer[4] = SUBAddr;
                 SendBuffer[5] = 0;
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
@@ -572,35 +575,60 @@ namespace IICTool
                     button3.Enabled = true;
                     button4.Enabled = true;
                     SelectUart.Close();
-                    return;
+                    return false;
                 }
                 int checmsum = 0x100 - ((byte)(ReceiveBuffer[3] + ReceiveBuffer[4] + ReceiveBuffer[5] + ReceiveBuffer[6]));
                 if (ReceiveBuffer[2] == 0xFF)
                 {
                     MessageBox.Show("IIC read fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
                 }
                 else if ((((byte)checmsum) != ReceiveBuffer[7]) || ReceiveBuffer[2] == 0xFE)
                 {
                     MessageBox.Show("Communication error!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
                 }
                 else
                 {
-                    int val = ReceiveBuffer[6];
-                    RegValue.Text = val.ToString("X2");
+                    value = ReceiveBuffer[6];
                 }
                 SelectUart.Close();
             }
             else
             {
                 MessageBox.Show("Please select port!", "Error");
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                SelectUart.Close();
+                return false;
             }
             ReadAll.Enabled = true;
             button2.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = true;
+            return true;
+		}
+				
+        private void button3_Click(object sender, EventArgs e)
+        {
+            byte reg_value = 0;
+            Read_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), ref reg_value);
+            RegValue.Text = reg_value.ToString("X2");
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private bool Write_Register(byte SlaveAddr, byte SUBAddr, byte value)
         {
             ReadAll.Enabled = false;
             button2.Enabled = false;
@@ -608,7 +636,7 @@ namespace IICTool
             button4.Enabled = false;
             if (radioButton1.Checked)
             {
-                int i, retry = 0;
+                int retry = 0;
                 uint ReadNumber = 0;
                 uint WriteNumber = 0;
                 bool result;
@@ -621,11 +649,11 @@ namespace IICTool
                                         0);
                 SendBuffer[0] = 0;
                 SendBuffer[1] = 1;
-                SendBuffer[2] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
-                SendBuffer[3] = (byte)Convert.ToInt32(SUBAddress.Text, 16);
+                SendBuffer[2] = SlaveAddr;
+                SendBuffer[3] = SUBAddr;
                 SendBuffer[4] = 0;
                 SendBuffer[5] = 1;
-                SendBuffer[6] = (byte)Convert.ToInt32(RegValue.Text, 16);
+                SendBuffer[6] = value;
                 result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
                 do
                 {
@@ -646,7 +674,7 @@ namespace IICTool
                     button3.Enabled = true;
                     button4.Enabled = true;
                     CloseHandle(HidHandle);
-                    return;
+                    return false;
                 }
                 CloseHandle(HidHandle);
             }
@@ -670,15 +698,15 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
-                    return;
+                    return false;
                 }
                 SendBuffer[0] = 0xFF;
                 SendBuffer[1] = 0x55;
                 SendBuffer[2] = 0;
-                SendBuffer[3] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
-                SendBuffer[4] = (byte)Convert.ToInt32(SUBAddress.Text, 16);
-                SendBuffer[5] = 0x80;
-                SendBuffer[6] = (byte)Convert.ToInt32(RegValue.Text, 16);
+                SendBuffer[3] = SlaveAddr;
+                SendBuffer[4] = SUBAddr;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = value;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
                 Thread.Sleep(20);
@@ -694,27 +722,50 @@ namespace IICTool
                     button3.Enabled = true;
                     button4.Enabled = true;
                     SelectUart.Close();
-                    return;
+                    return false;
                 }
                 int checmsum = 0x100 - ((byte)(ReceiveBuffer[3] + ReceiveBuffer[4] + ReceiveBuffer[5] + ReceiveBuffer[6]));
                 if (ReceiveBuffer[2] == 0xFF)
                 {
                     MessageBox.Show("IIC write fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
                 }
                 else if ((((byte)checmsum) != ReceiveBuffer[7]) || ReceiveBuffer[2] == 0xFE)
                 {
                     MessageBox.Show("Communication error!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
                 }
                 SelectUart.Close();
             }
             else
             {
                 MessageBox.Show("Please select port!", "Error");
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                SelectUart.Close();
+                return false;
             }
             ReadAll.Enabled = true;
             button2.Enabled = true;
             button3.Enabled = true;
-            button4.Enabled = true;          
+            button4.Enabled = true;
+            return true;
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
         }
 
         private void SlaveAddress_TextChanged(object sender, EventArgs e)
@@ -827,7 +878,7 @@ namespace IICTool
                 SendBuffer[2] = 3;
                 SendBuffer[3] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
                 SendBuffer[4] = 0;
-                SendBuffer[5] = 0;
+                SendBuffer[5] = 0x80;
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
@@ -1095,6 +1146,168 @@ namespace IICTool
             byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
             val -= 10;
             RegValue.Text = val.ToString("X2");
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string fName;
+            int lineNo = 0;
+            OpenFileDialog FileDialog = new OpenFileDialog();
+            FileDialog.Filter = "script file|*.scr";
+            FileDialog.RestoreDirectory = true;
+            FileDialog.FilterIndex = 1;
+            if (FileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string line, message = "";
+                byte address = 0, subaddr = 0, value = 0;
+                bool result = false;
+                fName = FileDialog.FileName;
+                //FileStream fs = new FileStream(fName, FileMode.Open);
+                System.IO.StreamReader file = new System.IO.StreamReader(fName);
+                while ((line = file.ReadLine()) != null)
+                {
+                    string temp;
+                    if (lineNo == 0)
+                    {
+                        if (line.Length < 10)
+                        {
+                            MessageBox.Show("No device address!", "Error");
+                            break;
+                        }
+                        temp = line.Substring(0, 7);
+                        if (temp != "ADDRESS")
+                        {
+                            MessageBox.Show("No device address!", "Error");
+                            break;
+                        }
+                        temp = line.Substring(8, 2);
+                        try
+                        {                           
+                            address = (byte)Convert.ToInt32(temp, 16);
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                            break;
+                        }
+                        if (address == 0)
+                        {
+                            MessageBox.Show("device address error!", "Error");
+                            break;
+                        }
+                        else
+                        {
+                            if (!DisplayMessage)
+                            {
+                                this.Width += 250;
+                                DisplayMessage = true;
+                                button13.Text = "<<<";
+                            }
+                            message = "DEVICE ADDRESS === ";
+                            message += address.ToString("X2");
+                            message += "\r\n";
+                            textBox2.Text = message;
+                        }
+                    }
+                    else
+                    {
+                        if (line.Length < 7)
+                        {
+                            MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                            break;
+                        }
+                        temp = line.Substring(0, 5);
+                        if (temp == "READ ")
+                        {
+                            temp = line.Substring(5, 2);
+                            try
+                            {
+                                subaddr = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+                            result = Read_Register(address, subaddr, ref value);
+                            if (!result)
+                            {
+                                break;
+                            }
+                            temp = "READ <=== ";
+                            temp += subaddr.ToString("X2");
+                            temp += " VALUE ";
+                            temp += value.ToString("X2");
+                            temp += "\r\n";
+                            message += temp;
+                            textBox2.Text = message;
+                        }
+                        else if (temp == "WRITE")
+                        {
+                            temp = line.Substring(6, 2);
+                            try
+                            {
+                                subaddr = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+                            temp = line.Substring(9, 2);
+                            try
+                            {
+                                value = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+                            result = Write_Register(address, subaddr, value);
+                            if (!result)
+                            {
+                                break;
+                            }
+                            temp = "WRITE ===> ";
+                            temp += subaddr.ToString("X2");
+                            temp += " VALUE ";
+                            temp += value.ToString("X2");
+                            temp += "\r\n";
+                            message += temp;
+                            textBox2.Text = message;
+                        }
+                        else
+                        {
+                            MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                            break;
+                        }
+                    }
+                    lineNo++;
+                }
+                file.Close();
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (DisplayMessage)
+            {
+                this.Width -= 250;
+                DisplayMessage = false;
+                button13.Text = ">>>";
+            }
+            else
+            {
+                this.Width += 250;
+                DisplayMessage = true;
+                button13.Text = "<<<";
+            }
         }
     }
 }
