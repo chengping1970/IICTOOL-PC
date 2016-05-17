@@ -433,52 +433,58 @@ namespace IICTool
             {
                 i += 0x01;
             }
+           
             string s = i.ToString("X2");
             RegValue.Text = s;
-
         }
 
         private void cbBIT7_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT6_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT5_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT4_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT3_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT2_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT1_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
 
         private void cbBIT0_CheckedChanged(object sender, EventArgs e)
         {
-            Bitcheck_change();
+            //Bitcheck_change();
         }
-				
-		private bool Read_Register(byte SlaveAddr, byte SUBAddr, ref byte value)
+
+        private void cbBIT_click(object sender, EventArgs e)
+        {
+            Bitcheck_change();
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+        }
+
+        private bool Read_Register(byte SlaveAddr, byte SUBAddr, ref byte value)
 		{
 			ReadAll.Enabled = false;
             button2.Enabled = false;
@@ -931,6 +937,8 @@ namespace IICTool
             button2.Enabled = true;
             button3.Enabled = true;
             button4.Enabled = true;
+            SUBAddress.Text = "FF";
+            RegValue.Text = RegData[16, 15].Value.ToString();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -1125,6 +1133,7 @@ namespace IICTool
             byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
             val++;
             RegValue.Text = val.ToString("X2");
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -1132,20 +1141,23 @@ namespace IICTool
             byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
             val--;
             RegValue.Text = val.ToString("X2");
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
             byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
-            val += 10;
+            val += 16;
             RegValue.Text = val.ToString("X2");
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
             byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
-            val -= 10;
+            val -= 16;
             RegValue.Text = val.ToString("X2");
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
         }
 
         private void button11_Click(object sender, EventArgs e)
@@ -1159,7 +1171,7 @@ namespace IICTool
             if (FileDialog.ShowDialog() == DialogResult.OK)
             {
                 string line, message = "";
-                byte address = 0, subaddr = 0, value = 0;
+                byte address = 0, subaddr = 0, value = 0, delay = 0;
                 bool result = false;
                 fName = FileDialog.FileName;
                 //FileStream fs = new FileStream(fName, FileMode.Open);
@@ -1273,6 +1285,44 @@ namespace IICTool
                             temp += subaddr.ToString("X2");
                             temp += " VALUE ";
                             temp += value.ToString("X2");
+                            temp += "\r\n";
+                            message += temp;
+                            textBox2.Text = message;
+                        }
+                        else if (temp == "DELAY")
+                        {
+                            temp = line.Substring(6, 2);
+                            try
+                            {
+                                delay = (byte)Convert.ToInt32(temp, 10);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+                            Thread.Sleep(delay);
+                            
+                            temp = "DELAY === ";
+                            temp += delay.ToString("D3");
+                            temp += "ms\r\n";
+                            message += temp;
+                            textBox2.Text = message;
+                        }
+                        else if (temp == "ADDRE")
+                        {
+                            temp = line.Substring(8, 2);
+                            try
+                            {
+                                address = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+                            temp = "DEVICE ADDRESS === ";
+                            temp += address.ToString("X2");
                             temp += "\r\n";
                             message += temp;
                             textBox2.Text = message;

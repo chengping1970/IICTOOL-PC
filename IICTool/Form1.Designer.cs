@@ -174,6 +174,7 @@
             this.cbBIT7.TabIndex = 8;
             this.cbBIT7.UseVisualStyleBackColor = true;
             this.cbBIT7.CheckedChanged += new System.EventHandler(this.cbBIT7_CheckedChanged);
+            this.cbBIT7.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT6
             // 
@@ -184,6 +185,7 @@
             this.cbBIT6.TabIndex = 9;
             this.cbBIT6.UseVisualStyleBackColor = true;
             this.cbBIT6.CheckedChanged += new System.EventHandler(this.cbBIT6_CheckedChanged);
+            this.cbBIT6.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT5
             // 
@@ -194,6 +196,7 @@
             this.cbBIT5.TabIndex = 10;
             this.cbBIT5.UseVisualStyleBackColor = true;
             this.cbBIT5.CheckedChanged += new System.EventHandler(this.cbBIT5_CheckedChanged);
+            this.cbBIT5.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT4
             // 
@@ -204,6 +207,7 @@
             this.cbBIT4.TabIndex = 11;
             this.cbBIT4.UseVisualStyleBackColor = true;
             this.cbBIT4.CheckedChanged += new System.EventHandler(this.cbBIT4_CheckedChanged);
+            this.cbBIT4.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT3
             // 
@@ -214,6 +218,7 @@
             this.cbBIT3.TabIndex = 12;
             this.cbBIT3.UseVisualStyleBackColor = true;
             this.cbBIT3.CheckedChanged += new System.EventHandler(this.cbBIT3_CheckedChanged);
+            this.cbBIT3.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT2
             // 
@@ -224,6 +229,7 @@
             this.cbBIT2.TabIndex = 13;
             this.cbBIT2.UseVisualStyleBackColor = true;
             this.cbBIT2.CheckedChanged += new System.EventHandler(this.cbBIT2_CheckedChanged);
+            this.cbBIT2.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT1
             // 
@@ -234,6 +240,7 @@
             this.cbBIT1.TabIndex = 14;
             this.cbBIT1.UseVisualStyleBackColor = true;
             this.cbBIT1.CheckedChanged += new System.EventHandler(this.cbBIT1_CheckedChanged);
+            this.cbBIT1.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // cbBIT0
             // 
@@ -244,6 +251,7 @@
             this.cbBIT0.TabIndex = 15;
             this.cbBIT0.UseVisualStyleBackColor = true;
             this.cbBIT0.CheckedChanged += new System.EventHandler(this.cbBIT0_CheckedChanged);
+            this.cbBIT0.Click += new System.EventHandler(this.cbBIT_click);
             // 
             // label6
             // 
@@ -370,7 +378,7 @@
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(58, 33);
             this.button10.TabIndex = 33;
-            this.button10.Text = "-10";
+            this.button10.Text = "-16";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -380,7 +388,7 @@
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(58, 34);
             this.button9.TabIndex = 32;
-            this.button9.Text = "+10";
+            this.button9.Text = "+16";
             this.button9.UseVisualStyleBackColor = true;
             this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
@@ -742,6 +750,7 @@
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(124, 36);
             this.button12.TabIndex = 31;
+            this.button12.Text = "WRITE CONFIG";
             this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
