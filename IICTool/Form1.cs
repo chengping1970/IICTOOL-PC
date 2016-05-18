@@ -1359,5 +1359,46 @@ namespace IICTool
                 button13.Text = "<<<";
             }
         }
+
+        private void Value_MouseWheel(object sender, MouseEventArgs e)
+        {
+            byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
+            if (e.Delta > 0)
+                val++;
+            else
+                val--;
+            RegValue.Text = val.ToString("X2");
+            Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+        }
+
+        private void Value_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 0x0d)
+            {                
+                Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+            }
+        }
+
+        private void Value_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+           {
+               byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
+               val--;
+               RegValue.Text = val.ToString("X2");
+               Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+           }
+        }
+
+        private void Value_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
+                val++;
+                RegValue.Text = val.ToString("X2");
+                Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+            }
+        }
     }
 }

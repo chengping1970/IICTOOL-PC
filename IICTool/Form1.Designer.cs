@@ -164,6 +164,10 @@
             this.RegValue.TabIndex = 7;
             this.RegValue.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.RegValue.TextChanged += new System.EventHandler(this.Value_TextChanged);
+            this.RegValue.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Value_KeyDown);
+            this.RegValue.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Value_KeyPress);
+            this.RegValue.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Value_KeyUp);
+            this.RegValue.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Value_MouseWheel);
             // 
             // cbBIT7
             // 
