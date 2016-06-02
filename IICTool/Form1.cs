@@ -1114,7 +1114,7 @@ namespace IICTool
             if (FileDialog.ShowDialog() == DialogResult.OK)
             {
                 fName = FileDialog.FileName;
-                FileStream fs = new FileStream(fName, FileMode.OpenOrCreate);
+                FileStream fs = new FileStream(fName, FileMode.Create);
                 BinaryWriter bw = new BinaryWriter(fs);
                 byte[] write_buffer = new byte[256];
                 for (int i = 0; i < 256; i++)
@@ -1178,7 +1178,7 @@ namespace IICTool
                 System.IO.StreamReader file = new System.IO.StreamReader(fName);
                 while ((line = file.ReadLine()) != null)
                 {
-                    string temp;
+                    string temp, temp1;
                     if (lineNo == 0)
                     {
                         if (line.Length < 10)
@@ -1266,7 +1266,23 @@ namespace IICTool
                                 MessageBox.Show("Error line " + lineNo.ToString(), "Error");
                                 break;
                             }
-                            temp = line.Substring(9, 2);
+                            
+                            if (line.Length == 10)
+                            {
+                                temp = line.Substring(9, 1);
+                            }
+                            else
+                            {
+                                temp1 = line.Substring(10, 1);
+                                if (temp1 == " ")
+                                {
+                                    temp = line.Substring(9, 1);
+                                }
+                                else
+                                {
+                                    temp = line.Substring(9, 2);
+                                }
+                            }
                             try
                             {
                                 value = (byte)Convert.ToInt32(temp, 16);
@@ -1338,10 +1354,97 @@ namespace IICTool
                 file.Close();
             }
         }
-
+/*
+REG_0x57,
+REG_0xC8,
+REG_0xC9,
+REG_0xCA,
+REG_0xCB,
+REG_0x18,
+REG_0x47,
+REG_0x48,
+REG_0x49,
+REG_0x58,
+REG_0x59,
+REG_0x5A,
+REG_0x5C,
+REG_0x0D
+*/
         private void button12_Click(object sender, EventArgs e)
         {
+            string fName;
+            SaveFileDialog FileDialog = new SaveFileDialog();
+            FileDialog.Filter = "Motorola S19 file|*.s19";
+            FileDialog.RestoreDirectory = true;
+            FileDialog.FilterIndex = 1;
+            if (FileDialog.ShowDialog() == DialogResult.OK)
+            {
+                fName = FileDialog.FileName;
+                FileStream fs = new FileStream(fName, FileMode.Create);
+                byte[] head = System.Text.Encoding.Default.GetBytes("S1234000");
+                fs.Write(head, 0, head.Length);
+                byte[] data_buffer = new byte[33];
+                data_buffer[0] = 0x5A;
+                data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);
+                data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);
+                data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);
+                data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);
+                data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);
+                data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);
+                data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);
+                data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);
+                data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);
+                data_buffer[10] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);
+                data_buffer[11] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);
+                data_buffer[12] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);
+                data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);
+                data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);
+                data_buffer[32] = 0x63;
+                for (byte i = 0; i < 32; i++)
+                {
+                    data_buffer[32] += data_buffer[i];
+                }
+                byte value;
+                value = 0xFF;
+                value -= data_buffer[32];
+                data_buffer[32] = value;
 
+                byte[] write_buffer = new byte[67];
+                
+                for (byte i = 0; i < 33; i++)
+                {
+                    value = data_buffer[i];
+                    value >>= 4;
+                    if (value > 9)
+                    {
+                        value += 0x37;
+                        write_buffer[i * 2] = value;
+                    }
+                    else
+                    {
+                        value += 0x30;
+                        write_buffer[i * 2] = value;
+                    }
+                    value = data_buffer[i];
+                    value &= 0x0F;
+                    if (value > 9)
+                    {
+                        value += 0x37;
+                        write_buffer[i * 2 + 1] = value;
+                    }
+                    else
+                    {
+                        value += 0x30;
+                        write_buffer[i * 2 + 1] = value;
+                    }
+                }
+                write_buffer[66] = 0;
+                fs.Write(write_buffer, 0, write_buffer.Length - 1);
+                byte[] end = System.Text.Encoding.Default.GetBytes("\r\nS9030000FC\r\n");
+                fs.Write(end, 0, end.Length);
+                fs.Flush();
+                fs.Close();
+            }
         }
 
         private void button13_Click(object sender, EventArgs e)
