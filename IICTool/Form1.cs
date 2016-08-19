@@ -769,6 +769,143 @@ namespace IICTool
             button4.Enabled = true;
             return true;
         }
+
+        private bool Write_Two_Register(byte SlaveAddr, byte SUBAddr, byte value1, byte value2)
+        {
+            ReadAll.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            if (radioButton1.Checked)
+            {
+                int retry = 0;
+                uint ReadNumber = 0;
+                uint WriteNumber = 0;
+                bool result;
+                int HidHandle = CreateFile(HIDdevicePathName,
+                                        GENERIC_READ | GENERIC_WRITE,
+                                        FILE_SHARE_READ | FILE_SHARE_WRITE,
+                                        0,
+                                        OPEN_EXISTING,
+                                        0,
+                                        0);
+                SendBuffer[0] = 0;
+                SendBuffer[1] = 1;
+                SendBuffer[2] = SlaveAddr;
+                SendBuffer[3] = SUBAddr;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 2;
+                SendBuffer[6] = value1;
+                SendBuffer[7] = value2;
+                result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
+                do
+                {
+                    result = ReadFile(HidHandle, ReceiveBuffer, 65, ref ReadNumber, IntPtr.Zero);
+                    Thread.Sleep(10);
+                    retry++;
+                    if (retry > 10)
+                    {
+                        break;
+                    }
+                }
+                while (!result);
+                if (ReceiveBuffer[1] == 0xFF)
+                {
+                    MessageBox.Show("IIC write fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    CloseHandle(HidHandle);
+                    return false;
+                }
+                CloseHandle(HidHandle);
+            }
+            else if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    return false;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 5;
+                SendBuffer[3] = SlaveAddr;
+                SendBuffer[4] = SUBAddr;
+                SendBuffer[5] = value1;
+                SendBuffer[6] = value2;
+                SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(20);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("UART timeout!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
+                }
+                int checmsum = 0x100 - ((byte)(ReceiveBuffer[3] + ReceiveBuffer[4] + ReceiveBuffer[5] + ReceiveBuffer[6]));
+                if (ReceiveBuffer[2] == 0xFF)
+                {
+                    MessageBox.Show("IIC write fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
+                }
+                else if ((((byte)checmsum) != ReceiveBuffer[7]) || ReceiveBuffer[2] == 0xFE)
+                {
+                    MessageBox.Show("Communication error!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    SelectUart.Close();
+                    return false;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select port!", "Error");
+                ReadAll.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
+                button4.Enabled = true;
+                SelectUart.Close();
+                return false;
+            }
+            ReadAll.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+            return true;
+        }
         private void button4_Click(object sender, EventArgs e)
         {
             Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
@@ -1171,7 +1308,7 @@ namespace IICTool
             if (FileDialog.ShowDialog() == DialogResult.OK)
             {
                 string line, message = "";
-                byte address = 0, subaddr = 0, value = 0, delay = 0;
+                byte address = 0, subaddr = 0, value = 0, value1 = 0, delay = 0;
                 bool result = false;
                 fName = FileDialog.FileName;
                 //FileStream fs = new FileStream(fName, FileMode.Open);
@@ -1246,6 +1383,7 @@ namespace IICTool
                             {
                                 break;
                             }
+                            //Thread.Sleep(20);
                             temp = "READ <=== ";
                             temp += subaddr.ToString("X2");
                             temp += " VALUE ";
@@ -1297,10 +1435,60 @@ namespace IICTool
                             {
                                 break;
                             }
+                            //Thread.Sleep(20);
                             temp = "WRITE ===> ";
                             temp += subaddr.ToString("X2");
                             temp += " VALUE ";
                             temp += value.ToString("X2");
+                            temp += "\r\n";
+                            message += temp;
+                            textBox2.Text = message;
+                        }
+                        else if (temp == "WRTWO")
+                        {
+                            temp = line.Substring(6, 2);
+                            try
+                            {
+                                subaddr = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+
+                            temp = line.Substring(9, 2);
+                            try
+                            {
+                                value = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+
+                            temp = line.Substring(11, 2);
+                            try
+                            {
+                                value1 = (byte)Convert.ToInt32(temp, 16);
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Error line " + lineNo.ToString(), "Error");
+                                break;
+                            }
+
+                            result = Write_Two_Register(address, subaddr, value, value1);
+                            if (!result)
+                            {
+                                break;
+                            }
+                            temp = "WRITE TWO ===> ";
+                            temp += subaddr.ToString("X2");
+                            temp += " VALUE ";
+                            temp += value.ToString("X2");
+                            temp += value1.ToString("X2");
                             temp += "\r\n";
                             message += temp;
                             textBox2.Text = message;
@@ -1350,26 +1538,15 @@ namespace IICTool
                         }
                     }
                     lineNo++;
+                    textBox2.Refresh();
+                    textBox2.Focus();
+                    textBox2.Select(textBox2.TextLength, 0);
+                    textBox2.ScrollToCaret();
                 }
                 file.Close();
             }
         }
-/*
-REG_0x57,
-REG_0xC8,
-REG_0xC9,
-REG_0xCA,
-REG_0xCB,
-REG_0x18,
-REG_0x47,
-REG_0x48,
-REG_0x49,
-REG_0x58,
-REG_0x59,
-REG_0x5A,
-REG_0x5C,
-REG_0x0D
-*/
+
         private void button12_Click(object sender, EventArgs e)
         {
             string fName;
@@ -1384,21 +1561,26 @@ REG_0x0D
                 byte[] head = System.Text.Encoding.Default.GetBytes("S1234000");
                 fs.Write(head, 0, head.Length);
                 byte[] data_buffer = new byte[33];
-                data_buffer[0] = 0x5A;
-                data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);
-                data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);
-                data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);
-                data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);
-                data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);
-                data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);
-                data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);
-                data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);
-                data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);
-                data_buffer[10] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);
-                data_buffer[11] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);
-                data_buffer[12] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);
-                data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);
-                data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);
+                data_buffer[0] = 0xA5;
+                data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);   // 0x57
+                data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);   // 0xC8
+                data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);   // 0xC9
+                data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);   // 0xCA
+                data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);   // 0xCB
+                data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);   // 0x18
+                data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);   // 0x47
+                data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);   // 0x48
+                data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);   // 0x49
+                data_buffer[10] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x04].Value.ToString(), 16);   // 0x4A
+                data_buffer[11] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);   // 0x58
+                data_buffer[12] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);   // 0x59
+                data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);   // 0x5A
+                data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x05].Value.ToString(), 16);   // 0x5B
+                data_buffer[15] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);   // 0x5C
+                data_buffer[16] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x07].Value.ToString(), 16);   // 0x7D
+                data_buffer[17] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
+                data_buffer[18] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
+                data_buffer[19] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
                 data_buffer[32] = 0x63;
                 for (byte i = 0; i < 32; i++)
                 {

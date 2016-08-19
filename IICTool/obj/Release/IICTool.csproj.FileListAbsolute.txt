@@ -12,7 +12,7 @@ E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.exe
 E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.pdb
 E:\work\IICTOOL-PC\IICTool\bin\Release\IICTool.exe
 E:\work\IICTOOL-PC\IICTool\bin\Release\IICTool.pdb
-E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.csprojResolveAssemblyReference.cache
 E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.I2CTool.resources
 E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.Properties.Resources.resources
 E:\work\IICTOOL-PC\IICTool\obj\Release\IICTool.csproj.GenerateResource.Cache
+E:\Work\IICTOOL-PC\IICTool\obj\Release\IICTool.csprojResolveAssemblyReference.cache

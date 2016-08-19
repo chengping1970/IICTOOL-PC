@@ -798,7 +798,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "I2CTool";
-            this.Text = "Debug Tool";
+            this.Text = "Debug Tool 2016/07/29";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).EndInit();
