@@ -90,9 +90,18 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.button16 = new System.Windows.Forms.Button();
+            this.button15 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.button17 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // Label1
@@ -770,19 +779,106 @@
             // textBox2
             // 
             this.textBox2.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.textBox2.Location = new System.Drawing.Point(807, 23);
+            this.textBox2.Location = new System.Drawing.Point(802, 14);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(219, 523);
+            this.textBox2.Size = new System.Drawing.Size(229, 580);
             this.textBox2.TabIndex = 35;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(9, 19);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(77, 14);
+            this.label14.TabIndex = 36;
+            this.label14.Text = "Machine ID";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.button17);
+            this.groupBox3.Controls.Add(this.button16);
+            this.groupBox3.Controls.Add(this.button15);
+            this.groupBox3.Controls.Add(this.button14);
+            this.groupBox3.Controls.Add(this.button1);
+            this.groupBox3.Controls.Add(this.textBox3);
+            this.groupBox3.Controls.Add(this.label14);
+            this.groupBox3.Location = new System.Drawing.Point(15, 557);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(769, 46);
+            this.groupBox3.TabIndex = 37;
+            this.groupBox3.TabStop = false;
+            // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(541, 14);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(99, 25);
+            this.button16.TabIndex = 41;
+            this.button16.Text = "IIC RUN/STOP";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // button15
+            // 
+            this.button15.Location = new System.Drawing.Point(418, 14);
+            this.button15.Name = "button15";
+            this.button15.Size = new System.Drawing.Size(99, 25);
+            this.button15.TabIndex = 40;
+            this.button15.Text = "3D ON/OFF";
+            this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(295, 14);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(99, 25);
+            this.button14.TabIndex = 39;
+            this.button14.Text = "POWER ON/OFF";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(172, 14);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(99, 27);
+            this.button1.TabIndex = 38;
+            this.button1.Text = "Write Config";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(92, 16);
+            this.textBox3.MaxLength = 2;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(58, 23);
+            this.textBox3.TabIndex = 37;
+            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            // 
+            // button17
+            // 
+            this.button17.ForeColor = System.Drawing.Color.Red;
+            this.button17.Location = new System.Drawing.Point(664, 14);
+            this.button17.Name = "button17";
+            this.button17.Size = new System.Drawing.Size(99, 25);
+            this.button17.TabIndex = 42;
+            this.button17.Text = "Modify ID";
+            this.button17.UseVisualStyleBackColor = true;
+            this.button17.Click += new System.EventHandler(this.button17_Click);
             // 
             // I2CTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 567);
+            this.ClientSize = new System.Drawing.Size(1048, 616);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button13);
             this.Controls.Add(this.button12);
@@ -798,12 +894,15 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "I2CTool";
-            this.Text = "Debug Tool 2016/07/29";
+            this.Text = "Debug Tool 2016/09/30";
+            this.Load += new System.EventHandler(this.I2CTool_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -873,6 +972,14 @@
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.Button button15;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button17;
     }
 }
 

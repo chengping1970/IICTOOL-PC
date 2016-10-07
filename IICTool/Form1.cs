@@ -82,7 +82,7 @@ namespace IICTool
                 IntPtr lpOverlapped
             );
         [DllImport("kernel32.dll")]
-        static public extern int CloseHandle(int hObject);        
+        static public extern int CloseHandle(int hObject);
         public const uint GENERIC_READ = 0x80000000;
         public const uint GENERIC_WRITE = 0x40000000;
         public const uint FILE_SHARE_READ = 0x00000001;
@@ -137,8 +137,9 @@ namespace IICTool
             SlaveAddress.Text = "BA";
             SUBAddress.Text = "00";
             RegValue.Text = "00";
+            textBox3.Text = "00";
             RegData.SelectionChanged += new EventHandler(RegData_SelectionChanged);
-            Thread ScanDevice  = new Thread(new ThreadStart(ScandeviceThread));
+            Thread ScanDevice = new Thread(new ThreadStart(ScandeviceThread));
             ScanDevice.IsBackground = true;
             ScanDevice.Start();
             _syncContext = SynchronizationContext.Current;
@@ -147,7 +148,7 @@ namespace IICTool
 
         private void comboBox1_click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -170,7 +171,7 @@ namespace IICTool
         private void SetRadio1(object text)
         {
             if (text.Equals("0"))
-            { 
+            {
                 radioButton1.Enabled = false;
                 radioButton1.Checked = false;
             }
@@ -313,7 +314,7 @@ namespace IICTool
                 return;
             }
 
-            if ((i&0x01) == 0x01)
+            if ((i & 0x01) == 0x01)
             {
                 cbBIT0.Checked = true;
             }
@@ -394,13 +395,13 @@ namespace IICTool
 
             SUBAddress.Text = Convert.ToString(pos, 16);
             RegValue.Text = RegData[col, row].Value.ToString();
-           
+
         }
 
         private void Bitcheck_change()
         {
             int i = 0;
-     
+
             if (cbBIT7.Checked)
             {
                 i += 0x80;
@@ -433,7 +434,7 @@ namespace IICTool
             {
                 i += 0x01;
             }
-           
+
             string s = i.ToString("X2");
             RegValue.Text = s;
         }
@@ -485,8 +486,8 @@ namespace IICTool
         }
 
         private bool Read_Register(byte SlaveAddr, byte SUBAddr, ref byte value)
-		{
-			ReadAll.Enabled = false;
+        {
+            ReadAll.Enabled = false;
             button2.Enabled = false;
             button3.Enabled = false;
             button4.Enabled = false;
@@ -534,7 +535,7 @@ namespace IICTool
                 else
                 {
                     value = ReceiveBuffer[6];
-                }                             
+                }
                 CloseHandle(HidHandle);
             }
             else if (radioButton2.Checked)
@@ -557,6 +558,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return false;
                 }
                 SendBuffer[0] = 0xFF;
@@ -564,7 +569,7 @@ namespace IICTool
                 SendBuffer[2] = 1;
                 SendBuffer[3] = SlaveAddr;
                 SendBuffer[4] = SUBAddr;
-                SendBuffer[5] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
@@ -573,7 +578,7 @@ namespace IICTool
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
                 }
-                catch 
+                catch
                 {
                     MessageBox.Show("UART timeout!", "Error");
                     ReadAll.Enabled = true;
@@ -625,8 +630,8 @@ namespace IICTool
             button3.Enabled = true;
             button4.Enabled = true;
             return true;
-		}
-				
+        }
+
         private void button3_Click(object sender, EventArgs e)
         {
             byte reg_value = 0;
@@ -704,6 +709,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return false;
                 }
                 SendBuffer[0] = 0xFF;
@@ -711,7 +720,7 @@ namespace IICTool
                 SendBuffer[2] = 0;
                 SendBuffer[3] = SlaveAddr;
                 SendBuffer[4] = SUBAddr;
-                SendBuffer[5] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
                 SendBuffer[6] = value;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
@@ -841,6 +850,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return false;
                 }
                 SendBuffer[0] = 0xFF;
@@ -917,7 +930,7 @@ namespace IICTool
             try
             {
                 addr = Convert.ToInt32(SlaveAddress.Text, 16);
-                if (addr%2 == 1 && addr > 16)
+                if (addr % 2 == 1 && addr > 16)
                 {
                     addr = (addr / 2) * 2;
                     SlaveAddress.Text = addr.ToString("X2");
@@ -955,7 +968,7 @@ namespace IICTool
                 SendBuffer[3] = 0;
                 SendBuffer[4] = 0;
                 SendBuffer[5] = 32;
-                for (j = 0;j < 8; j++)
+                for (j = 0; j < 8; j++)
                 {
                     SendBuffer[3] = (byte)(32 * j);
                     result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
@@ -991,7 +1004,7 @@ namespace IICTool
                         }
                     }
                     Thread.Sleep(10);
-                }            
+                }
                 CloseHandle(HidHandle);
             }
             else if (radioButton2.Checked)
@@ -1014,6 +1027,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return;
                 }
                 SendBuffer[0] = 0xFF;
@@ -1021,7 +1038,7 @@ namespace IICTool
                 SendBuffer[2] = 3;
                 SendBuffer[3] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
                 SendBuffer[4] = 0;
-                SendBuffer[5] = 0x80;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
@@ -1063,7 +1080,7 @@ namespace IICTool
                         RegData.CurrentCell.Value = val.ToString("X2");
 
                     }
-                }               
+                }
                 SelectUart.Close();
             }
             else
@@ -1156,6 +1173,10 @@ namespace IICTool
                 catch
                 {
                     MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
                     return;
                 }
                 SendBuffer[0] = 0xFF;
@@ -1163,7 +1184,7 @@ namespace IICTool
                 SendBuffer[2] = 2;
                 SendBuffer[3] = (byte)Convert.ToInt32(SlaveAddress.Text, 16);
                 SendBuffer[4] = 0x00;
-                SendBuffer[5] = 0x80;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
                 int i, checksum = SendBuffer[3] + SendBuffer[4] + SendBuffer[5];
                 for (i = 0; i < 256; i++)
                 {
@@ -1213,7 +1234,7 @@ namespace IICTool
             ReadAll.Enabled = true;
             button2.Enabled = true;
             button3.Enabled = true;
-            button4.Enabled = true;          
+            button4.Enabled = true;
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -1331,7 +1352,7 @@ namespace IICTool
                         }
                         temp = line.Substring(8, 2);
                         try
-                        {                           
+                        {
                             address = (byte)Convert.ToInt32(temp, 16);
                         }
                         catch
@@ -1404,7 +1425,7 @@ namespace IICTool
                                 MessageBox.Show("Error line " + lineNo.ToString(), "Error");
                                 break;
                             }
-                            
+
                             if (line.Length == 10)
                             {
                                 temp = line.Substring(9, 1);
@@ -1506,7 +1527,7 @@ namespace IICTool
                                 break;
                             }
                             Thread.Sleep(delay);
-                            
+
                             temp = "DELAY === ";
                             temp += delay.ToString("D3");
                             temp += "ms\r\n";
@@ -1581,6 +1602,7 @@ namespace IICTool
                 data_buffer[17] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
                 data_buffer[18] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
                 data_buffer[19] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
+                data_buffer[20] = Convert.ToByte(textBox3.Text, 10);
                 data_buffer[32] = 0x63;
                 for (byte i = 0; i < 32; i++)
                 {
@@ -1592,7 +1614,7 @@ namespace IICTool
                 data_buffer[32] = value;
 
                 byte[] write_buffer = new byte[67];
-                
+
                 for (byte i = 0; i < 33; i++)
                 {
                     value = data_buffer[i];
@@ -1659,7 +1681,7 @@ namespace IICTool
         private void Value_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 0x0d)
-            {                
+            {
                 Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
             }
         }
@@ -1667,12 +1689,12 @@ namespace IICTool
         private void Value_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Down)
-           {
-               byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
-               val--;
-               RegValue.Text = val.ToString("X2");
-               Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
-           }
+            {
+                byte val = (byte)Convert.ToInt32(RegValue.Text, 16);
+                val--;
+                RegValue.Text = val.ToString("X2");
+                Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+            }
         }
 
         private void Value_KeyUp(object sender, KeyEventArgs e)
@@ -1683,6 +1705,334 @@ namespace IICTool
                 val++;
                 RegValue.Text = val.ToString("X2");
                 Write_Register((byte)Convert.ToInt32(SlaveAddress.Text, 16), (byte)Convert.ToInt32(SUBAddress.Text, 16), (byte)Convert.ToInt32(RegValue.Text, 16));
+            }
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsNumber(e.KeyChar)) && e.KeyChar != (char)13 && e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void I2CTool_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 6;
+                SendBuffer[3] = 0;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);   // 0x57
+                SendBuffer[7] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);   // 0xC8
+                SendBuffer[8] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);   // 0xC9
+                SendBuffer[9] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);   // 0xCA
+                SendBuffer[10] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);   // 0xCB
+                SendBuffer[11] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);   // 0x18
+                SendBuffer[12] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);   // 0x47
+                SendBuffer[13] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);   // 0x48
+                SendBuffer[14] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);   // 0x49
+                SendBuffer[15] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x04].Value.ToString(), 16);   // 0x4A
+                SendBuffer[16] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);   // 0x58
+                SendBuffer[17] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);   // 0x59
+                SendBuffer[18] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);   // 0x5A
+                SendBuffer[19] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x05].Value.ToString(), 16);   // 0x5B
+                SendBuffer[20] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);   // 0x5C
+                SendBuffer[21] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x07].Value.ToString(), 16);   // 0x7D
+                SendBuffer[22] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
+                SendBuffer[23] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
+                SendBuffer[24] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
+                SendBuffer[25] = Convert.ToByte(textBox3.Text, 10);
+                int i, checksum = SendBuffer[5];
+                for (i = 0; i < 20; i++)
+                {
+                    checksum += SendBuffer[6 + i];
+                }
+                SendBuffer[26] = (byte)(0x100 - (byte)checksum);
+                SelectUart.Write(SendBuffer, 0, 27);
+                Thread.Sleep(1000);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 27);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                MessageBox.Show("Write config success!", "Error");
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 4;
+                SendBuffer[3] = 0;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(50);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 4;
+                SendBuffer[3] = 1;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(50);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 4;
+                SendBuffer[3] = 2;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(50);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button17_Click(object sender, EventArgs e)
+        {
+            MessageBoxButtons messButton = MessageBoxButtons.OKCancel;
+            DialogResult dr = MessageBox.Show("警告：特殊功能，只能连接一台机器", "修改机器号", messButton);
+            if (dr == DialogResult.OK)
+            {
+                if (radioButton2.Checked)
+                {
+                    try
+                    {
+                        string serialName = cbSerial.SelectedItem.ToString();
+                        SelectUart.PortName = serialName;
+                        SelectUart.BaudRate = 115200;
+                        SelectUart.DataBits = 8;
+                        SelectUart.StopBits = StopBits.One;
+                        SelectUart.Parity = Parity.None;
+                        SelectUart.ReadTimeout = 2000;
+                        if (SelectUart.IsOpen == true)
+                        {
+                            SelectUart.Close();
+                        }
+                        SelectUart.Open();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Can not open serial port!", "Error");
+                        ReadAll.Enabled = true;
+                        button2.Enabled = true;
+                        button3.Enabled = true;
+                        button4.Enabled = true;
+                        return;
+                    }
+                    SendBuffer[0] = 0xFF;
+                    SendBuffer[1] = 0x55;
+                    SendBuffer[2] = 7;
+                    SendBuffer[3] = 0;
+                    SendBuffer[4] = 0;
+                    SendBuffer[5] = 0;
+                    SendBuffer[6] = Convert.ToByte(textBox3.Text, 10);
+                    SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                    SelectUart.Write(SendBuffer, 0, 8);
+                    Thread.Sleep(50);
+                    try
+                    {
+                        SelectUart.Read(ReceiveBuffer, 0, 8);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Timeout!", "Error");
+                        SelectUart.Close();
+                        return;
+                    }
+                    SelectUart.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Please select uart port!", "Error");
+                }
             }
         }
     }
