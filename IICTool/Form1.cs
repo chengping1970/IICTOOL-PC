@@ -138,6 +138,7 @@ namespace IICTool
             SUBAddress.Text = "00";
             RegValue.Text = "00";
             textBox3.Text = "00";
+            textBox4.Text = "100";
             RegData.SelectionChanged += new EventHandler(RegData_SelectionChanged);
             Thread ScanDevice = new Thread(new ThreadStart(ScandeviceThread));
             ScanDevice.IsBackground = true;
@@ -166,7 +167,7 @@ namespace IICTool
             if (text.Equals("0"))
                 textBox1.BackColor = Color.Red;
             else
-                textBox1.BackColor = Color.Green;
+                textBox1.BackColor = Color.Cyan;
         }
         private void SetRadio1(object text)
         {
@@ -203,7 +204,7 @@ namespace IICTool
                 {
                     cbSerial.SelectedIndex = id;
                 }
-                cbSerial.BackColor = Color.Green;
+                cbSerial.BackColor = Color.Cyan;
                 radioButton2.Enabled = true;
             }
             else
@@ -1570,84 +1571,127 @@ namespace IICTool
 
         private void button12_Click(object sender, EventArgs e)
         {
-            string fName;
-            SaveFileDialog FileDialog = new SaveFileDialog();
-            FileDialog.Filter = "Motorola S19 file|*.s19";
-            FileDialog.RestoreDirectory = true;
-            FileDialog.FilterIndex = 1;
-            if (FileDialog.ShowDialog() == DialogResult.OK)
+            MessageBoxButtons messButton = MessageBoxButtons.YesNo;
+            DialogResult dr = MessageBox.Show("新硬件版本？（新版本直接存入EEPROOM）", "保存配置", messButton);
+
+            if (dr == DialogResult.Yes)
             {
-                fName = FileDialog.FileName;
-                FileStream fs = new FileStream(fName, FileMode.Create);
-                byte[] head = System.Text.Encoding.Default.GetBytes("S1234000");
-                fs.Write(head, 0, head.Length);
-                byte[] data_buffer = new byte[33];
-                data_buffer[0] = 0xA5;
-                data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);   // 0x57
-                data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);   // 0xC8
-                data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);   // 0xC9
-                data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);   // 0xCA
-                data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);   // 0xCB
-                data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);   // 0x18
-                data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);   // 0x47
-                data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);   // 0x48
-                data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);   // 0x49
-                data_buffer[10] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x04].Value.ToString(), 16);   // 0x4A
-                data_buffer[11] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);   // 0x58
-                data_buffer[12] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);   // 0x59
-                data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);   // 0x5A
-                data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x05].Value.ToString(), 16);   // 0x5B
-                data_buffer[15] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);   // 0x5C
-                data_buffer[16] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x07].Value.ToString(), 16);   // 0x7D
-                data_buffer[17] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
-                data_buffer[18] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
-                data_buffer[19] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
-                data_buffer[20] = Convert.ToByte(textBox3.Text, 10);
-                data_buffer[32] = 0x63;
-                for (byte i = 0; i < 32; i++)
+                if (radioButton1.Checked)
                 {
-                    data_buffer[32] += data_buffer[i];
+                    byte[] data_buffer = new byte[21];
+                    data_buffer[0] = 0xA5;
+                    data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);   // 0x57
+                    data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);   // 0xC8
+                    data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);   // 0xC9
+                    data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);   // 0xCA
+                    data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);   // 0xCB
+                    data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);   // 0x18
+                    data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);   // 0x47
+                    data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);   // 0x48
+                    data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);   // 0x49
+                    data_buffer[10] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x04].Value.ToString(), 16);   // 0x4A
+                    data_buffer[11] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);   // 0x58
+                    data_buffer[12] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);   // 0x59
+                    data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);   // 0x5A
+                    data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x05].Value.ToString(), 16);   // 0x5B
+                    data_buffer[15] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);   // 0x5C
+                    data_buffer[16] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x07].Value.ToString(), 16);   // 0x7D
+                    data_buffer[17] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
+                    data_buffer[18] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
+                    data_buffer[19] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
+                    data_buffer[20] = Convert.ToByte(textBox3.Text, 10);
+                    for (byte i = 0; i < 21; i++)
+                    {
+                        Write_Register(0xA0, i, data_buffer[i]);
+                    }
+                    MessageBox.Show("Write config success!", "Note");
                 }
-                byte value;
-                value = 0xFF;
-                value -= data_buffer[32];
-                data_buffer[32] = value;
-
-                byte[] write_buffer = new byte[67];
-
-                for (byte i = 0; i < 33; i++)
+                else
                 {
-                    value = data_buffer[i];
-                    value >>= 4;
-                    if (value > 9)
-                    {
-                        value += 0x37;
-                        write_buffer[i * 2] = value;
-                    }
-                    else
-                    {
-                        value += 0x30;
-                        write_buffer[i * 2] = value;
-                    }
-                    value = data_buffer[i];
-                    value &= 0x0F;
-                    if (value > 9)
-                    {
-                        value += 0x37;
-                        write_buffer[i * 2 + 1] = value;
-                    }
-                    else
-                    {
-                        value += 0x30;
-                        write_buffer[i * 2 + 1] = value;
-                    }
+                    MessageBox.Show("Only USBHID tool function!", "Error");
                 }
-                write_buffer[66] = 0;
-                fs.Write(write_buffer, 0, write_buffer.Length - 1);
-                byte[] end = System.Text.Encoding.Default.GetBytes("\r\nS9030000FC\r\n");
-                fs.Write(end, 0, end.Length);
-                fs.Flush();
-                fs.Close();
+            }
+            else
+            {
+                string fName;
+                SaveFileDialog FileDialog = new SaveFileDialog();
+                FileDialog.Filter = "Motorola S19 file|*.s19";
+                FileDialog.RestoreDirectory = true;
+                FileDialog.FilterIndex = 1;
+                if (FileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    fName = FileDialog.FileName;
+                    FileStream fs = new FileStream(fName, FileMode.Create);
+                    byte[] head = System.Text.Encoding.Default.GetBytes("S1234000");
+                    fs.Write(head, 0, head.Length);
+                    byte[] data_buffer = new byte[33];
+                    data_buffer[0] = 0xA5;
+                    data_buffer[1] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x05].Value.ToString(), 16);   // 0x57
+                    data_buffer[2] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x0C].Value.ToString(), 16);   // 0xC8
+                    data_buffer[3] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x0C].Value.ToString(), 16);   // 0xC9
+                    data_buffer[4] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x0C].Value.ToString(), 16);   // 0xCA
+                    data_buffer[5] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x0C].Value.ToString(), 16);   // 0xCB
+                    data_buffer[6] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x01].Value.ToString(), 16);   // 0x18
+                    data_buffer[7] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x04].Value.ToString(), 16);   // 0x47
+                    data_buffer[8] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x04].Value.ToString(), 16);   // 0x48
+                    data_buffer[9] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x04].Value.ToString(), 16);   // 0x49
+                    data_buffer[10] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x04].Value.ToString(), 16);   // 0x4A
+                    data_buffer[11] = (byte)Convert.ToInt32(RegData[0x08 + 1, 0x05].Value.ToString(), 16);   // 0x58
+                    data_buffer[12] = (byte)Convert.ToInt32(RegData[0x09 + 1, 0x05].Value.ToString(), 16);   // 0x59
+                    data_buffer[13] = (byte)Convert.ToInt32(RegData[0x0A + 1, 0x05].Value.ToString(), 16);   // 0x5A
+                    data_buffer[14] = (byte)Convert.ToInt32(RegData[0x0B + 1, 0x05].Value.ToString(), 16);   // 0x5B
+                    data_buffer[15] = (byte)Convert.ToInt32(RegData[0x0C + 1, 0x05].Value.ToString(), 16);   // 0x5C
+                    data_buffer[16] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x07].Value.ToString(), 16);   // 0x7D
+                    data_buffer[17] = (byte)Convert.ToInt32(RegData[0x0F + 1, 0x0D].Value.ToString(), 16);   // 0xDF
+                    data_buffer[18] = (byte)Convert.ToInt32(RegData[0x07 + 1, 0x0E].Value.ToString(), 16);   // 0xE7
+                    data_buffer[19] = (byte)Convert.ToInt32(RegData[0x0D + 1, 0x00].Value.ToString(), 16);   // 0x0D
+                    data_buffer[20] = Convert.ToByte(textBox3.Text, 10);
+                    data_buffer[32] = 0x63;
+                    for (byte i = 0; i < 32; i++)
+                    {
+                        data_buffer[32] += data_buffer[i];
+                    }
+                    byte value;
+                    value = 0xFF;
+                    value -= data_buffer[32];
+                    data_buffer[32] = value;
+
+                    byte[] write_buffer = new byte[67];
+
+                    for (byte i = 0; i < 33; i++)
+                    {
+                        value = data_buffer[i];
+                        value >>= 4;
+                        if (value > 9)
+                        {
+                            value += 0x37;
+                            write_buffer[i * 2] = value;
+                        }
+                        else
+                        {
+                            value += 0x30;
+                            write_buffer[i * 2] = value;
+                        }
+                        value = data_buffer[i];
+                        value &= 0x0F;
+                        if (value > 9)
+                        {
+                            value += 0x37;
+                            write_buffer[i * 2 + 1] = value;
+                        }
+                        else
+                        {
+                            value += 0x30;
+                            write_buffer[i * 2 + 1] = value;
+                        }
+                    }
+                    write_buffer[66] = 0;
+                    fs.Write(write_buffer, 0, write_buffer.Length - 1);
+                    byte[] end = System.Text.Encoding.Default.GetBytes("\r\nS9030000FC\r\n");
+                    fs.Write(end, 0, end.Length);
+                    fs.Flush();
+                    fs.Close();
+                }
             }
         }
 
@@ -1791,6 +1835,12 @@ namespace IICTool
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 27);
+                    if (ReceiveBuffer[2] == 0xFE)
+                    {
+                        MessageBox.Show("Communication Error!", "Error");
+                        SelectUart.Close();
+                        return;
+                    }
                 }
                 catch
                 {
@@ -1798,7 +1848,7 @@ namespace IICTool
                     SelectUart.Close();
                     return;
                 }
-                MessageBox.Show("Write config success!", "Error");
+                MessageBox.Show("Write config success!", "Note");
                 SelectUart.Close();
             }
             else
@@ -1848,6 +1898,21 @@ namespace IICTool
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
+                    if (ReceiveBuffer[2] == 0xFE)
+                    {
+                        MessageBox.Show("Communication Error!", "Error");
+                    }
+                    else
+                    {
+                        if (ReceiveBuffer[4] == 0)
+                        {
+                            button21.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            button21.BackColor = Color.Green;
+                        }
+                    }
                 }
                 catch
                 {
@@ -1904,6 +1969,21 @@ namespace IICTool
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
+                    if (ReceiveBuffer[2] == 0xFE)
+                    {
+                        MessageBox.Show("Communication Error!", "Error");
+                    }
+                    else
+                    {
+                        if (ReceiveBuffer[4] == 1)
+                        {
+                            button23.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            button23.BackColor = Color.Green;
+                        }
+                    }
                 }
                 catch
                 {
@@ -1960,6 +2040,21 @@ namespace IICTool
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
+                    if (ReceiveBuffer[2] == 0xFE)
+                    {
+                        MessageBox.Show("Communication Error!", "Error");
+                    }
+                    else
+                    {
+                        if (ReceiveBuffer[4] == 0)
+                        {
+                            button22.BackColor = Color.Red;
+                        }
+                        else
+                        {
+                            button22.BackColor = Color.Green;
+                        }
+                    }
                 }
                 catch
                 {
@@ -2033,6 +2128,282 @@ namespace IICTool
                 {
                     MessageBox.Show("Please select uart port!", "Error");
                 }
+            }
+        }
+
+        private void button18_Click(object sender, EventArgs e)
+        {
+            ReadAll.Enabled = false;
+            button2.Enabled = false;
+            button3.Enabled = false;
+            button4.Enabled = false;
+            if (radioButton1.Checked)
+            {
+                int i, j, retry = 0;
+                uint ReadNumber = 0;
+                uint WriteNumber = 0;
+                bool result;
+                int HidHandle = CreateFile(HIDdevicePathName,
+                                        GENERIC_READ | GENERIC_WRITE,
+                                        FILE_SHARE_READ | FILE_SHARE_WRITE,
+                                        0,
+                                        OPEN_EXISTING,
+                                        0,
+                                        0);
+                SendBuffer[0] = 0;
+                SendBuffer[1] = 1;
+                SendBuffer[2] = 0xE0;
+                SendBuffer[3] = 0x26;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 8;
+                SendBuffer[6] = 0x38;
+                SendBuffer[7] = 0x50;
+                SendBuffer[8] = 0x6D;
+                SendBuffer[9] = 0x00;
+                SendBuffer[10] = 0x00;
+                SendBuffer[11] = 0x00;
+                SendBuffer[12] = 0x00;
+                SendBuffer[13] = 0x02;
+                result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
+                do
+                {
+                    result = ReadFile(HidHandle, ReceiveBuffer, 65, ref ReadNumber, IntPtr.Zero);
+                    Thread.Sleep(10);
+                    retry++;
+                    if (retry > 10)
+                    {
+                        break;
+                    }
+                }
+                while (!result);
+                if (ReceiveBuffer[1] == 0xFF)
+                {
+                    MessageBox.Show("IIC write fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    CloseHandle(HidHandle);
+                    return;
+                }
+
+                Thread.Sleep(100);
+                SendBuffer[6] = 0x38;
+                SendBuffer[7] = 0x64;
+                SendBuffer[8] = 0x1C;
+                SendBuffer[9] = 0x00;
+                SendBuffer[10] = 0x00;
+                SendBuffer[11] = 0x00;
+                SendBuffer[12] = 0x00;
+                SendBuffer[13] = 0x01;
+                result = WriteFile(HidHandle, SendBuffer, 65, ref WriteNumber, IntPtr.Zero);
+                do
+                {
+                    result = ReadFile(HidHandle, ReceiveBuffer, 65, ref ReadNumber, IntPtr.Zero);
+                    Thread.Sleep(10);
+                    retry++;
+                    if (retry > 10)
+                    {
+                        break;
+                    }
+                }
+                while (!result);
+                if (ReceiveBuffer[1] == 0xFF)
+                {
+                    MessageBox.Show("IIC write fail!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    CloseHandle(HidHandle);
+                    return;
+                }
+                CloseHandle(HidHandle);
+            }
+            else
+            {
+                MessageBox.Show("Only USBHID tool function!", "Error");
+            }
+            ReadAll.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            byte val;
+            try
+            {
+                val = Convert.ToByte(textBox4.Text, 10);
+            }
+            catch
+            {
+                textBox4.Text = "0";
+                return;
+            }
+            
+            if (val > 100)
+            {
+                textBox4.Text = "0";
+            }
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            byte val;
+            try
+            {
+                val = Convert.ToByte(textBox3.Text, 10);
+            }
+            catch
+            {
+                textBox4.Text = "0";
+                return;
+            }
+        }
+
+        private void textBox4_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!(Char.IsNumber(e.KeyChar)) && e.KeyChar != (char)13 && e.KeyChar != (char)8)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void button19_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 4;
+                SendBuffer[3] = 3;
+                SendBuffer[4] = Convert.ToByte(textBox4.Text, 10);
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(50);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button20_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    SelectUart.BaudRate = 115200;
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 2000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 4;
+                SendBuffer[3] = 0x80;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = Convert.ToByte(textBox3.Text, 10);
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(50);
+                try
+                {
+                    SelectUart.Read(ReceiveBuffer, 0, 8);
+                    if (ReceiveBuffer[4] == 0)
+                    {
+                        button21.BackColor = Color.Red;
+                    }
+                    else
+                    {
+                        button21.BackColor = Color.Green;
+                    }
+                    if (ReceiveBuffer[5] == 1)
+                    {
+                        button22.BackColor = Color.Red;
+                    }
+                    else
+                    {
+                        button22.BackColor = Color.Green;
+                    }
+                    if (ReceiveBuffer[6] == 0)
+                    {
+                        button23.BackColor = Color.Red;
+                    }
+                    else
+                    {
+                        button23.BackColor = Color.Green;
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Timeout!", "Error");
+                    SelectUart.Close();
+                    return;
+                }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
             }
         }
     }
