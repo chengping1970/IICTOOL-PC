@@ -545,11 +545,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -574,7 +581,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -696,11 +703,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -725,7 +739,7 @@ namespace IICTool
                 SendBuffer[6] = value;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -837,11 +851,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -866,7 +887,7 @@ namespace IICTool
                 SendBuffer[6] = value2;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(20);
+                Thread.Sleep(50);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -1014,11 +1035,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -1043,7 +1071,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - ((byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6])));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 256 + 7);
@@ -1160,11 +1188,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -1197,11 +1232,11 @@ namespace IICTool
                 int addr = Convert.ToInt32(SlaveAddress.Text, 16);
                 if (addr >= 0xA0 && addr < 0xB0)
                 {
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
                 }
                 else
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(2000);
                 }
                 try
                 {
@@ -1765,6 +1800,48 @@ namespace IICTool
             }
         }
 
+				 private void textBox3_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                byte val = (byte)Convert.ToInt32(textBox3.Text, 10);
+                val--;
+                if (val == 255)
+                	val = 99;
+                textBox3.Text = Convert.ToString(val, 10);
+            }
+        }
+
+        private void textBox3_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                byte val = (byte)Convert.ToInt32(textBox3.Text, 10);
+                val++;
+                if (val == 100)
+                	val = 0;
+                textBox3.Text = Convert.ToString(val, 10);
+            }
+        }
+        
+        private void textBox3_MouseWheel(object sender, MouseEventArgs e)
+        {
+            byte val = (byte)Convert.ToInt32(textBox3.Text, 10);
+            if (e.Delta > 0)
+            {
+                val++;
+                if (val == 100)
+                	val = 0;
+            }
+            else
+            {
+                val--;
+                if (val == 255)
+                	val = 99;
+            }
+            textBox3.Text = Convert.ToString(val, 10);
+        }
+        
         private void I2CTool_Load(object sender, EventArgs e)
         {
 
@@ -1778,11 +1855,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -1831,7 +1915,7 @@ namespace IICTool
                 }
                 SendBuffer[26] = (byte)(0x100 - (byte)checksum);
                 SelectUart.Write(SendBuffer, 0, 27);
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 27);
@@ -1865,11 +1949,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -1894,7 +1985,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(50);
+                Thread.Sleep(200);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -1936,11 +2027,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -1965,7 +2063,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(50);
+                Thread.Sleep(200);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -2007,11 +2105,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2036,7 +2141,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(50);
+                Thread.Sleep(200);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -2082,11 +2187,18 @@ namespace IICTool
                     {
                         string serialName = cbSerial.SelectedItem.ToString();
                         SelectUart.PortName = serialName;
-                        SelectUart.BaudRate = 115200;
+                        if (checkBox1.Checked)
+		                    {
+		                        SelectUart.BaudRate = 9600;
+		                    }
+		                    else
+		                    {
+		                        SelectUart.BaudRate = 115200;
+		                    }
                         SelectUart.DataBits = 8;
                         SelectUart.StopBits = StopBits.One;
                         SelectUart.Parity = Parity.None;
-                        SelectUart.ReadTimeout = 2000;
+                        SelectUart.ReadTimeout = 5000;
                         if (SelectUart.IsOpen == true)
                         {
                             SelectUart.Close();
@@ -2111,7 +2223,7 @@ namespace IICTool
                     SendBuffer[6] = Convert.ToByte(textBox3.Text, 10);
                     SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                     SelectUart.Write(SendBuffer, 0, 8);
-                    Thread.Sleep(50);
+                    Thread.Sleep(200);
                     try
                     {
                         SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -2139,7 +2251,7 @@ namespace IICTool
             button4.Enabled = false;
             if (radioButton1.Checked)
             {
-                int i, j, retry = 0;
+                int retry = 0;
                 uint ReadNumber = 0;
                 uint WriteNumber = 0;
                 bool result;
@@ -2279,11 +2391,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2308,7 +2427,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(50);
+                Thread.Sleep(200);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -2335,11 +2454,18 @@ namespace IICTool
                 {
                     string serialName = cbSerial.SelectedItem.ToString();
                     SelectUart.PortName = serialName;
-                    SelectUart.BaudRate = 115200;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 2000;
+                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2364,7 +2490,7 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(50);
+                Thread.Sleep(200);
                 try
                 {
                     SelectUart.Read(ReceiveBuffer, 0, 8);
@@ -2399,6 +2525,492 @@ namespace IICTool
                     SelectUart.Close();
                     return;
                 }
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button24_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x80;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button25_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x88;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button26_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x82;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button27_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x83;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button31_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x84;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button30_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x85;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button29_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x86;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button28_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x87;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
+                SelectUart.Close();
+            }
+            else
+            {
+                MessageBox.Show("Please select uart port!", "Error");
+            }
+        }
+
+        private void button32_Click(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                try
+                {
+                    string serialName = cbSerial.SelectedItem.ToString();
+                    SelectUart.PortName = serialName;
+                    if (checkBox1.Checked)
+                    {
+                        SelectUart.BaudRate = 9600;
+                    }
+                    else
+                    {
+                        SelectUart.BaudRate = 115200;
+                    }
+                    SelectUart.DataBits = 8;
+                    SelectUart.StopBits = StopBits.One;
+                    SelectUart.Parity = Parity.None;
+                    SelectUart.ReadTimeout = 5000;
+                    if (SelectUart.IsOpen == true)
+                    {
+                        SelectUart.Close();
+                    }
+                    SelectUart.Open();
+                }
+                catch
+                {
+                    MessageBox.Show("Can not open serial port!", "Error");
+                    ReadAll.Enabled = true;
+                    button2.Enabled = true;
+                    button3.Enabled = true;
+                    button4.Enabled = true;
+                    return;
+                }
+                SendBuffer[0] = 0xFF;
+                SendBuffer[1] = 0x55;
+                SendBuffer[2] = 0x80;
+                SendBuffer[3] = 0x81;
+                SendBuffer[4] = 0;
+                SendBuffer[5] = 0;
+                SendBuffer[6] = 0;
+                SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
+                SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(1000);
+                SelectUart.Write(SendBuffer, 0, 8);
                 SelectUart.Close();
             }
             else

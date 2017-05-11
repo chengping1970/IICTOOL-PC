@@ -79,7 +79,9 @@
             this.Column0E = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column0F = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label16 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.ReadAll = new System.Windows.Forms.Button();
@@ -107,11 +109,22 @@
             this.button19 = new System.Windows.Forms.Button();
             this.label15 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button28 = new System.Windows.Forms.Button();
+            this.button29 = new System.Windows.Forms.Button();
+            this.button30 = new System.Windows.Forms.Button();
+            this.button31 = new System.Windows.Forms.Button();
+            this.button27 = new System.Windows.Forms.Button();
+            this.button26 = new System.Windows.Forms.Button();
+            this.button25 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button32 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // Label1
@@ -459,7 +472,7 @@
             // cbSerial
             // 
             this.cbSerial.FormattingEnabled = true;
-            this.cbSerial.Location = new System.Drawing.Point(90, 77);
+            this.cbSerial.Location = new System.Drawing.Point(85, 63);
             this.cbSerial.Name = "cbSerial";
             this.cbSerial.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.cbSerial.Size = new System.Drawing.Size(119, 22);
@@ -672,23 +685,35 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label16);
             this.groupBox2.Controls.Add(this.textBox1);
+            this.groupBox2.Controls.Add(this.checkBox1);
             this.groupBox2.Controls.Add(this.radioButton2);
             this.groupBox2.Controls.Add(this.radioButton1);
             this.groupBox2.Controls.Add(this.cbSerial);
             this.groupBox2.Location = new System.Drawing.Point(541, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(228, 129);
+            this.groupBox2.Size = new System.Drawing.Size(228, 136);
             this.groupBox2.TabIndex = 29;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Port Select";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.label16.Location = new System.Drawing.Point(37, 103);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(133, 14);
+            this.label16.TabIndex = 34;
+            this.label16.Text = "UART BAUDRATE 9600";
             // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.textBox1.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.textBox1.Location = new System.Drawing.Point(90, 39);
+            this.textBox1.Location = new System.Drawing.Point(85, 19);
             this.textBox1.MaxLength = 2;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -696,10 +721,19 @@
             this.textBox1.TabIndex = 34;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(16, 104);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 34;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(21, 81);
+            this.radioButton2.Location = new System.Drawing.Point(16, 66);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(53, 18);
             this.radioButton2.TabIndex = 29;
@@ -710,7 +744,7 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(21, 45);
+            this.radioButton1.Location = new System.Drawing.Point(16, 25);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(46, 18);
             this.radioButton1.TabIndex = 28;
@@ -796,7 +830,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBox2.Size = new System.Drawing.Size(229, 625);
+            this.textBox2.Size = new System.Drawing.Size(229, 685);
             this.textBox2.TabIndex = 35;
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
@@ -815,18 +849,18 @@
             this.groupBox3.Controls.Add(this.button17);
             this.groupBox3.Controls.Add(this.textBox3);
             this.groupBox3.Controls.Add(this.label14);
-            this.groupBox3.Location = new System.Drawing.Point(15, 557);
+            this.groupBox3.Location = new System.Drawing.Point(12, 557);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(232, 82);
+            this.groupBox3.Size = new System.Drawing.Size(235, 82);
             this.groupBox3.TabIndex = 37;
             this.groupBox3.TabStop = false;
             // 
             // button17
             // 
             this.button17.ForeColor = System.Drawing.Color.Red;
-            this.button17.Location = new System.Drawing.Point(12, 51);
+            this.button17.Location = new System.Drawing.Point(15, 45);
             this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(205, 25);
+            this.button17.Size = new System.Drawing.Size(202, 31);
             this.button17.TabIndex = 42;
             this.button17.Text = "Modify ID";
             this.button17.UseVisualStyleBackColor = true;
@@ -841,7 +875,10 @@
             this.textBox3.TabIndex = 37;
             this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.textBox3.TextChanged += new System.EventHandler(this.textBox3_TextChanged);
+            this.textBox3.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyDown);
             this.textBox3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox3_KeyPress);
+            this.textBox3.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBox3_KeyUp);
+            this.textBox3.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.textBox3_MouseWheel);
             // 
             // button16
             // 
@@ -976,11 +1013,119 @@
             this.textBox4.TextChanged += new System.EventHandler(this.textBox4_TextChanged);
             this.textBox4.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox4_KeyPress);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.button32);
+            this.groupBox5.Controls.Add(this.button28);
+            this.groupBox5.Controls.Add(this.button29);
+            this.groupBox5.Controls.Add(this.button30);
+            this.groupBox5.Controls.Add(this.button31);
+            this.groupBox5.Controls.Add(this.button27);
+            this.groupBox5.Controls.Add(this.button26);
+            this.groupBox5.Controls.Add(this.button25);
+            this.groupBox5.Controls.Add(this.button24);
+            this.groupBox5.Location = new System.Drawing.Point(12, 639);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(771, 60);
+            this.groupBox5.TabIndex = 40;
+            this.groupBox5.TabStop = false;
+            // 
+            // button28
+            // 
+            this.button28.Location = new System.Drawing.Point(696, 17);
+            this.button28.Name = "button28";
+            this.button28.Size = new System.Drawing.Size(59, 34);
+            this.button28.TabIndex = 7;
+            this.button28.Text = "Table3";
+            this.button28.UseVisualStyleBackColor = true;
+            this.button28.Click += new System.EventHandler(this.button28_Click);
+            // 
+            // button29
+            // 
+            this.button29.Location = new System.Drawing.Point(625, 17);
+            this.button29.Name = "button29";
+            this.button29.Size = new System.Drawing.Size(59, 34);
+            this.button29.TabIndex = 6;
+            this.button29.Text = "Table2";
+            this.button29.UseVisualStyleBackColor = true;
+            this.button29.Click += new System.EventHandler(this.button29_Click);
+            // 
+            // button30
+            // 
+            this.button30.Location = new System.Drawing.Point(554, 17);
+            this.button30.Name = "button30";
+            this.button30.Size = new System.Drawing.Size(59, 34);
+            this.button30.TabIndex = 5;
+            this.button30.Text = "Table1";
+            this.button30.UseVisualStyleBackColor = true;
+            this.button30.Click += new System.EventHandler(this.button30_Click);
+            // 
+            // button31
+            // 
+            this.button31.Location = new System.Drawing.Point(483, 17);
+            this.button31.Name = "button31";
+            this.button31.Size = new System.Drawing.Size(59, 34);
+            this.button31.TabIndex = 4;
+            this.button31.Text = "Table0";
+            this.button31.UseVisualStyleBackColor = true;
+            this.button31.Click += new System.EventHandler(this.button31_Click);
+            // 
+            // button27
+            // 
+            this.button27.Location = new System.Drawing.Point(372, 17);
+            this.button27.Name = "button27";
+            this.button27.Size = new System.Drawing.Size(79, 34);
+            this.button27.TabIndex = 3;
+            this.button27.Text = "IIC Run";
+            this.button27.UseVisualStyleBackColor = true;
+            this.button27.Click += new System.EventHandler(this.button27_Click);
+            // 
+            // button26
+            // 
+            this.button26.Location = new System.Drawing.Point(283, 17);
+            this.button26.Name = "button26";
+            this.button26.Size = new System.Drawing.Size(79, 34);
+            this.button26.TabIndex = 2;
+            this.button26.Text = "IIC Stop";
+            this.button26.UseVisualStyleBackColor = true;
+            this.button26.Click += new System.EventHandler(this.button26_Click);
+            // 
+            // button25
+            // 
+            this.button25.Location = new System.Drawing.Point(105, 17);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(79, 34);
+            this.button25.TabIndex = 1;
+            this.button25.Text = "9View";
+            this.button25.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
+            // 
+            // button24
+            // 
+            this.button24.Location = new System.Drawing.Point(16, 17);
+            this.button24.Name = "button24";
+            this.button24.Size = new System.Drawing.Size(79, 34);
+            this.button24.TabIndex = 0;
+            this.button24.Text = "2D+Z";
+            this.button24.UseVisualStyleBackColor = true;
+            this.button24.Click += new System.EventHandler(this.button24_Click);
+            // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(194, 17);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(79, 34);
+            this.button32.TabIndex = 8;
+            this.button32.Text = "2D";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
             // I2CTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1048, 645);
+            this.ClientSize = new System.Drawing.Size(1048, 710);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.button18);
             this.Controls.Add(this.groupBox3);
@@ -999,7 +1144,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "I2CTool";
-            this.Text = "Debug Tool 2017/01/01";
+            this.Text = "Debug Tool 2017/05/11";
             this.Load += new System.EventHandler(this.I2CTool_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -1010,6 +1155,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1096,6 +1242,18 @@
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button22;
         private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Button button27;
+        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button button28;
+        private System.Windows.Forms.Button button29;
+        private System.Windows.Forms.Button button30;
+        private System.Windows.Forms.Button button31;
+        private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Button button24;
+        private System.Windows.Forms.Button button32;
     }
 }
 
