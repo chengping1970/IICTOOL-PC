@@ -2552,7 +2552,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2577,8 +2576,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2606,7 +2606,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2631,8 +2630,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2660,7 +2660,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2685,8 +2684,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2714,7 +2714,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2739,8 +2738,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2768,7 +2768,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2793,8 +2792,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2822,7 +2822,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2847,8 +2846,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2876,7 +2876,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2901,8 +2900,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2930,7 +2930,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -2955,8 +2954,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
@@ -2984,7 +2984,6 @@ namespace IICTool
                     SelectUart.DataBits = 8;
                     SelectUart.StopBits = StopBits.One;
                     SelectUart.Parity = Parity.None;
-                    SelectUart.ReadTimeout = 5000;
                     if (SelectUart.IsOpen == true)
                     {
                         SelectUart.Close();
@@ -3009,8 +3008,9 @@ namespace IICTool
                 SendBuffer[6] = 0;
                 SendBuffer[7] = (byte)(0x100 - (byte)(SendBuffer[3] + SendBuffer[4] + SendBuffer[5] + SendBuffer[6]));
                 SelectUart.Write(SendBuffer, 0, 8);
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
                 SelectUart.Write(SendBuffer, 0, 8);
+                Thread.Sleep(200);
                 SelectUart.Close();
             }
             else
