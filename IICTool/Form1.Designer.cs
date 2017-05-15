@@ -110,6 +110,7 @@
             this.label15 = new System.Windows.Forms.Label();
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button32 = new System.Windows.Forms.Button();
             this.button28 = new System.Windows.Forms.Button();
             this.button29 = new System.Windows.Forms.Button();
             this.button30 = new System.Windows.Forms.Button();
@@ -118,7 +119,6 @@
             this.button26 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button24 = new System.Windows.Forms.Button();
-            this.button32 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RegData)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -1030,6 +1030,16 @@
             this.groupBox5.TabIndex = 40;
             this.groupBox5.TabStop = false;
             // 
+            // button32
+            // 
+            this.button32.Location = new System.Drawing.Point(194, 17);
+            this.button32.Name = "button32";
+            this.button32.Size = new System.Drawing.Size(79, 34);
+            this.button32.TabIndex = 8;
+            this.button32.Text = "2D";
+            this.button32.UseVisualStyleBackColor = true;
+            this.button32.Click += new System.EventHandler(this.button32_Click);
+            // 
             // button28
             // 
             this.button28.Location = new System.Drawing.Point(696, 17);
@@ -1110,16 +1120,6 @@
             this.button24.UseVisualStyleBackColor = true;
             this.button24.Click += new System.EventHandler(this.button24_Click);
             // 
-            // button32
-            // 
-            this.button32.Location = new System.Drawing.Point(194, 17);
-            this.button32.Name = "button32";
-            this.button32.Size = new System.Drawing.Size(79, 34);
-            this.button32.TabIndex = 8;
-            this.button32.Text = "2D";
-            this.button32.UseVisualStyleBackColor = true;
-            this.button32.Click += new System.EventHandler(this.button32_Click);
-            // 
             // I2CTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 14F);
@@ -1144,7 +1144,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.Name = "I2CTool";
-            this.Text = "Debug Tool 2017/05/11";
+            this.Text = "Debug Tool 2017/05/12";
             this.Load += new System.EventHandler(this.I2CTool_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
